@@ -15,15 +15,13 @@ function App() {
     
     <UserProvider>
     
-        <h2>Promonade APP</h2>
+        
         <Navbar />
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/user' element={<User/>}/>
         </Routes>
-        
-
     </UserProvider>
   )
 }
