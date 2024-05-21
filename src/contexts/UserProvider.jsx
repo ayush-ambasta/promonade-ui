@@ -4,7 +4,7 @@ import UserContext from "./UserContext";
 
 export const UserProvider =({children})=>{
     
-    const [user, setuser] = useState({'name':'owner'});
+    const [user, setuser] = useState();
     
     const updateUser=(newUser)=>{
         setuser(newUser);
