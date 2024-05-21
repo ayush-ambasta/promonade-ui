@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Home(){
+function Promotion(){
   return (
-    <div>Home</div>
+    <div>Promotion</div>
   )
 }
 
-export default Home;
+export default Promotion;
