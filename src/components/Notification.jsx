@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Modal from './Modal';
-import { getNotApprovedPromotions } from '@/services/promotionsService';
+import { getNotApprovedPromotions,approvePromotion,disapprovePromotion } from '@/services/promotionsService';
 import UserContext from '@/contexts/UserContext';
 
 
@@ -27,7 +27,7 @@ const handleButtonClick = (promotion, action) => {
 };
 const getPromotion=async() => {
   const data = await getNotApprovedPromotions();
-  setPromotions(data.filter(promo => promo?.createdBy?.team === user?.team));
+  setPromotions(data);
 }
 
 useEffect(() => {
@@ -40,14 +40,21 @@ const closeModal = () => {
   setSelectedPromotion(null);
 };
 
-const handleModalAction = () => {
-  if (selectedPromotion.action === 'accept') {
-    alert('Promotion Accepted');
-  } else if (selectedPromotion.action === 'decline') {
-    alert('Promotion Declined');
+const handleModalAction = async () => {
+  try{
+    if (selectedPromotion.action === 'accept') {
+      await approvePromotion(selectedPromotion.id);
+      alert('Promotion Accepted');
+    } else if (selectedPromotion.action === 'decline') {
+      await disapprovePromotion(selectedPromotion.id);
+      alert('Promotion Declined');
+    }
+    setPromotions(promotions.filter(promo => promo?.id !== selectedPromotion?.id));
+    closeModal();
+  }catch(e){
+    alert("Something went wrong");
   }
-  setPromotions(promotions.filter(promo => promo?.id !== selectedPromotion?.id));
-  closeModal();
+  
 };
 
   return (

@@ -34,7 +34,6 @@ function Login() {
     try{
       const response = await login(username, password);
       const data = JSON.stringify(response);
-      
       localStorage.setItem('user', data);
       dispatch({type:'LOGIN',payload:response});
       navigate('/');

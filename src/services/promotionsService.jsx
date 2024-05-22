@@ -54,3 +54,54 @@ export const getNotApprovedPromotions = async ()=>{
     }
 }
 
+export const approvePromotion = async (id)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/promotions/approve-promotion?id=${id}`,
+            {
+                method: 'POST',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);s
+    }
+}
+
+export const disapprovePromotion = async (id)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/promotions/disapprove-promotion?id=${id}`,
+            {
+                method: 'POST',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);s
+    }
+}
