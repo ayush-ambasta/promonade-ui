@@ -14,7 +14,7 @@ export const ActivePromotions = () => {
     const {setteamName} = useContext(UserContext);
     const [promotions, setpromotions] = useState([]);
     const handleClick = (promo) => {
-        setteamName(`${promo.createdBy.team}`);
+        // setteamName(`${promo.createdBy.team}`);
     };
     useEffect(() => {
       const getPromotion=async() => {

@@ -8,17 +8,18 @@ import {
 import Modal from './Modal';
 import { getNotApprovedPromotions,approvePromotion,disapprovePromotion } from '@/services/promotionsService';
 import UserContext from '@/contexts/UserContext';
+import { Button } from './ui/button';
 
 
 
 export const Notification = () => {
-  
+
 const {state} = useContext(UserContext);
 const {user} = state?.user;
 const [promotions, setPromotions] = useState([]);
 const [selectedPromotion, setSelectedPromotion] = useState(null);
 const [isModalOpen, setIsModalOpen] = useState(false);
-
+const [refresh, setrefresh] = useState(0);
 
 
 const handleButtonClick = (promotion, action) => {
@@ -32,9 +33,11 @@ const getPromotion=async() => {
 
 useEffect(() => {
   getPromotion();
-}, [])
+}, [refresh])
 
-
+const handleRefresh=()=>{
+  setrefresh((refresh)=>refresh+1);
+}
 const closeModal = () => {
   setIsModalOpen(false);
   setSelectedPromotion(null);
@@ -62,6 +65,8 @@ const handleModalAction = async () => {
       <Card x-chunk="dashboard-07-chunk-3">
         <CardHeader>
           <CardTitle>Notifications</CardTitle>
+          <Button onClick={handleRefresh}>Refresh</Button>
+          <hr></hr>
         </CardHeader>
         <CardContent>
         {promotions.length === 0 ? <h2>No Notifications</h2> :

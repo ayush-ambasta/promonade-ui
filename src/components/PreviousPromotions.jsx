@@ -13,7 +13,7 @@ export const PreviousPromotions = () => {
     const {setteamName} = useContext(UserContext);
     const [promotions, setpromotions] = useState([]);
     const handleClick = (promo) => {
-        setteamName(`${promo.createdBy.team}`);
+        // setteamName(`${promo.createdBy.team}`);
     };
     const checkVaildTill = (promo) =>{
         const validTill = new Date(promo?.validTill);
