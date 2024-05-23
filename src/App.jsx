@@ -6,22 +6,24 @@ import Navbar from './components/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import User from './pages/User'
-import Home from './pages/Home'
+import Promotion from './pages/Promotion'
+import { RequireAuth } from './requireAuth'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     
     <UserProvider>
-    
-        
+
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home/>}/>
+          
+            <Route path='/' element={<RequireAuth><User/></RequireAuth>}/>
+            <Route path='/promotions' element={<RequireAuth><Promotion/></RequireAuth>}/>
+          
           <Route path='/login' element={<Login />}/>
-          <Route path='/user' element={<User/>}/>
-        </Routes>
+        </Routes> 
+      
     </UserProvider>
   )
 }

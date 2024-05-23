@@ -1,17 +1,76 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { NavLink as Link, useNavigate} from 'react-router-dom';
+import { Menu} from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import UserContext from '@/contexts/UserContext';
+
 
 function Navbar(){
+  const {state,dispatch} = useContext(UserContext);
+  const navigate = useNavigate();
+  const user=state.user;
+  const handleLogout=(e)=>{
+    e.preventDefault();
+    console.log('logout');
+    dispatch({type: "LOGOUT"});
+    navigate('/login');
+  }
   return (
-    <nav className="bg-gray-800 p-4 sticky top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-lg font-bold">Promonade App</div>
-        <div className="space-x-4">
-          <NavLink to="/" className="text-gray-300 hover:text-white">Home</NavLink>
-          <NavLink to="/login" className="text-gray-300 hover:text-white">Login</NavLink>
+    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between">
+        <h1 className="text-lg font-bold">Promonade</h1>
+        <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+        
+          <Link
+            to="/"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            User
+          </Link>
+          <Link
+            to="/promotions"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Promotions
+          </Link>
+          
+          
+        </nav>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0 md:hidden"
+            >
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <nav className="grid gap-6 text-lg font-medium">
+              <h1>Promonade</h1>
+              <Link
+                to="/"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                User
+              </Link>
+              <Link
+                to="/promotion"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Promotions
+              </Link>
+            </nav>
+          </SheetContent>
+        </Sheet>
+        <div>
+          {user === null ? (<Button><Link to="/login">Login</Link></Button>) : (
+            <Button onClick={handleLogout}>Logout</Button>
+          )}
         </div>
-      </div>
-    </nav>
+      </header>
   )
 }
 
