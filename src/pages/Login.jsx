@@ -19,7 +19,7 @@ function Login() {
   const [password, setpassword] = useState();
   const {state,dispatch,setteam} = useContext(UserContext);
   const user = state?.user || null;
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(user!==null){
@@ -52,7 +52,7 @@ function Login() {
     setpassword(e.target.value);
   };
   return (
-    <div className="flex min-h-screen items-center justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-[90vh] items-center justify-center px-6 lg:px-8">
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>

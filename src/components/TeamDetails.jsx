@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { convertToTitleCase } from '@/lib/utils';
 import {
     Card,
     CardContent,
@@ -25,6 +26,7 @@ export const TeamDetails = () => {
     const teamname = teamName || defaultTeamName;
     try{
       const response = await getByTeam(teamname);
+      console.log(response)
       setTeam(response);
       setloading(false);
     }catch(err){
@@ -35,6 +37,7 @@ export const TeamDetails = () => {
   
   useEffect(() => {
     getByTeamName();
+    console.log(team)
   }, [teamName]);
 
   const openManagerModal = () => {
@@ -81,7 +84,7 @@ export const TeamDetails = () => {
         </CardHeader>
         <CardContent>
         <div className="container mx-auto p-4">
-        <h2 className='font-bold'>{teamName || defaultTeamName}</h2>
+        <h2 className='font-semibold text-xl'>{(teamName && convertToTitleCase(teamName)) || (defaultTeamName && convertToTitleCase(defaultTeamName)) }</h2>
         <div className="flex justify-end mb-4">
             {user.role === 'OWNER' && (
             <>
@@ -90,33 +93,44 @@ export const TeamDetails = () => {
             </>
             )}
         </div>
-
-        <table className="min-w-full bg-white border">
-            <thead>
-            <tr className='border'>
-                <th className="py-2">Username</th>
-                <th className="py-2">Email</th>
-                <th className="py-2">Role</th>
-                {user.role === 'OWNER' && user?.team===team[0]?.team && <th className="py-2">Actions</th>}
-            </tr>
-            </thead>
-            <tbody>
-            {team.map(member => (
-                <tr key={member.username} className="text-center border">
-                <td className="py-2">{member.username}</td>
-                <td className="py-2">{member.email}</td>
-                <td className="py-2">{member.role}</td>
-                {user.role === 'OWNER' && (
-                    <td className="py-2">
-                    {member.role !== 'OWNER' && user?.team === member?.team && (
-                        <button onClick={() => handleDelete(member.username)} className="bg-black text-white px-3 py-1 rounded text-xs">Delete</button>
-                    )}
-                    </td>
-                )}
-                </tr>
-            ))}
-            </tbody>
-        </table>
+        {
+          team.length>0 ?
+        
+          (<table className="min-w-full bg-white border">
+              <thead>
+              <tr className='border'>
+                  <th className="py-2 text-sm">Username</th>
+                  <th className="py-2 text-sm">Name</th>
+                  <th className="py-2 text-sm">Email</th>
+                  <th className="py-2 text-sm">Role</th>
+                  {user.role === 'OWNER' && user?.team===team[0]?.team && <th className="py-2 text-sm">Actions</th>}
+              </tr>
+              </thead>
+              <tbody>
+              {team.map(member => (
+                  <tr key={member.username} className="text-center border">
+                  <td className="py-2 text-sm">{member.username}</td>
+                  <td className="py-2 text-sm">{member.name}</td>
+                  <td className="py-2 text-sm">{member.email}</td>
+                  <td className="py-2 text-sm">{convertToTitleCase(member.role)}</td>
+                  {user.role === 'OWNER' && (
+                      <td className="py-2">
+                      {member.role !== 'OWNER' && user?.team === member?.team && (
+                          <button onClick={() => handleDelete(member.username)} className="bg-black text-white px-3 py-1 rounded text-xs">Delete</button>
+                      )}
+                      </td>
+                  )}
+                  </tr>
+              ))}
+              </tbody>
+          </table>):
+          (
+            <div className='text-center text-sm'>
+              Nothing to show
+            </div>
+          )
+          
+        }
 
         {isManagerModalOpen || isOwnerModalOpen ? (
             <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center">

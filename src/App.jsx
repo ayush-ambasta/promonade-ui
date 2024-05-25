@@ -17,9 +17,9 @@ function App() {
 
         <Navbar />
         <Routes>
+          <Route path='/' element={<RequireAuth><Promotion/></RequireAuth>}/> 
+          <Route path='/me' element={<RequireAuth><User/></RequireAuth>}/>
           
-            <Route path='/' element={<RequireAuth><User/></RequireAuth>}/>
-            <Route path='/promotions' element={<RequireAuth><Promotion/></RequireAuth>}/>
           
           <Route path='/login' element={<Login />}/>
         </Routes> 

@@ -5,7 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { convertToTitleCase } from '@/lib/utils';
 import UserContext from '@/contexts/UserContext';
+import {CircleUserRound} from "lucide-react"
 
 
 export const UserDetails = () => {
@@ -15,7 +17,11 @@ export const UserDetails = () => {
   return (
     <Card x-chunk="dashboard-07-chunk-0">
         <CardHeader>
-        <CardTitle>User Details</CardTitle>
+        <CardTitle>
+            <div className='flex justify-around w-4/12 items-center'>
+                <CircleUserRound size={40}/> User Details
+            </div>
+        </CardTitle>
         </CardHeader>
         <CardContent>
         <div className="overflow-x-auto">
@@ -42,7 +48,7 @@ export const UserDetails = () => {
                             Team
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {user?.team}
+                            {convertToTitleCase(user?.team)}
                         </td>
                     </tr>
                     <tr>
@@ -50,7 +56,7 @@ export const UserDetails = () => {
                             Role
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {user?.role}
+                            {convertToTitleCase(user?.role)}
                         </td>
                     </tr>
                 </tbody>

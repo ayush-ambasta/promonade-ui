@@ -6,7 +6,7 @@ export const getApprovedPromotions = async ()=>{
     const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     try{
-        const response = await axios(`${BASE_URL}/api/promotions/get-approved-user-team`,
+        const response = await axios(`${BASE_URL}/api/promotions/get-approved`,
             {
                 method: 'GET',
                 headers: { 

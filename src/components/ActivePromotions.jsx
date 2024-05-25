@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/card"
 import { getApprovedPromotions } from '@/services/promotionsService';
 import UserContext from '@/contexts/UserContext';
+import { Frown
+} from "lucide-react"
 
 
 
@@ -23,14 +25,21 @@ export const ActivePromotions = () => {
       }
       getPromotion();
     }, [])
+
+    
   return (
-    <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-      <Card x-chunk="dashboard-07-chunk-3">
+    <div className="grid auto-rows-max items-start mr-10 mt-10 gap-4 rounded-3xl bg-white shadow-sm lg:gap-8">
+      <Card x-chunk="dashboard-07-chunk-3" className="shadow-none border-none bg-inherit">
         <CardHeader>
-          <CardTitle>Active Promotions</CardTitle>
+          <CardTitle className="font-normal text-xl py- text-slate-600">Active Promotions</CardTitle>
         </CardHeader>
         <CardContent>
-        {promotions.length === 0 ? <h2>No Active Promotions</h2> :
+        {promotions.length === 0 ? <h4 className='text-sm text-slate-400'>
+          <div className='flex flex-col justify-center items-center'>
+            <br/>
+            <Frown /><br/>No Active Promotions 
+          </div> 
+        </h4> :
         (
         <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">

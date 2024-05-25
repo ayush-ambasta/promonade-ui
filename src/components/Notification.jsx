@@ -10,6 +10,10 @@ import { getNotApprovedPromotions,approvePromotion,disapprovePromotion } from '@
 import UserContext from '@/contexts/UserContext';
 import { Button } from './ui/button';
 
+import {
+  RefreshCcw 
+} from "lucide-react"
+
 
 
 export const Notification = () => {
@@ -38,6 +42,7 @@ useEffect(() => {
 const handleRefresh=()=>{
   setrefresh((refresh)=>refresh+1);
 }
+
 const closeModal = () => {
   setIsModalOpen(false);
   setSelectedPromotion(null);
@@ -63,9 +68,11 @@ const handleModalAction = async () => {
   return (
     <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
       <Card x-chunk="dashboard-07-chunk-3">
-        <CardHeader>
-          <CardTitle>Notifications</CardTitle>
-          <Button onClick={handleRefresh}>Refresh</Button>
+        <CardHeader className="p-4">
+          <div className="flex items-baseline justify-between">
+            <CardTitle>Notifications</CardTitle>
+            <Button className="bg-transparent hover:bg-transparent" onClick={handleRefresh}><RefreshCcw size={16} color="#000000" /></Button>
+          </div>
           <hr></hr>
         </CardHeader>
         <CardContent>

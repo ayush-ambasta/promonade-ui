@@ -19,23 +19,23 @@ function Navbar(){
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between">
         <h1 className="text-lg font-bold">Promonade</h1>
-        <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+        {user && <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         
           <Link
-            to="/"
+            to="/me"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             User
           </Link>
           <Link
-            to="/promotions"
+            to="/"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Promotions
           </Link>
           
-          
-        </nav>
+        </nav>}
+        
         <Sheet>
           <SheetTrigger asChild>
             <Button
@@ -67,7 +67,7 @@ function Navbar(){
         </Sheet>
         <div>
           {user === null ? (<Button><Link to="/login">Login</Link></Button>) : (
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button onClick={handleLogout}>Log Out</Button>
           )}
         </div>
       </header>

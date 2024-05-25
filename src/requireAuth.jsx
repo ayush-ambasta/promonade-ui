@@ -5,6 +5,7 @@ import UserContext from "./contexts/UserContext";
 export const RequireAuth = ({children})=> {
     const {state} = useContext(UserContext);
     const user = state?.user || null;
+    // console.log(user)
     const location = useLocation();
 
     if(user === null) {
