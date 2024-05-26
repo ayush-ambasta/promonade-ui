@@ -12,19 +12,12 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { getApprovedPromotions } from '@/services/promotionsService';
 import UserContext from '@/contexts/UserContext';
 import {
-  Bolt,
-  ChevronUp,
-  Leaf,
-  Milestone,
-  Stamp,
-  Zap,
   Search,
   Frown
 } from "lucide-react"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -173,7 +166,7 @@ export const PreviousPromotions = () => {
               {promotions?.map((promo) => (
               <ToggleGroupItem value={promo.id} key={promo.id} className=" text-left px-0 pr-1 py-7">
               <div
-                className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                className="flex cursor-pointer justify-between items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <PromotionCategoryIcon category={promo.category} size={25} className="h-4 w-4 mx-2" />
                 <div>

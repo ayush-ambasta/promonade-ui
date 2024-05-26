@@ -5,11 +5,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { convertToTitleCase, formatDate } from '@/lib/utils';
 import { getApprovedPromotions } from '@/services/promotionsService';
 import UserContext from '@/contexts/UserContext';
 import { Frown
 } from "lucide-react"
-
+import { PromotionCategoryIcon } from './PromoCategoryIcon';
 
 
 export const ActivePromotions = () => {
@@ -26,12 +27,12 @@ export const ActivePromotions = () => {
       getPromotion();
     }, [])
 
-    
+
   return (
-    <div className="grid auto-rows-max items-start mr-10 mt-10 gap-4 rounded-3xl bg-white shadow-sm lg:gap-8">
+    <div className="grid auto-rows-max items-start absolute mt-6 right-8 gap-4 rounded-3xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 lg:min-w-full">
       <Card x-chunk="dashboard-07-chunk-3" className="shadow-none border-none bg-inherit">
-        <CardHeader>
-          <CardTitle className="font-normal text-xl py- text-slate-600">Active Promotions</CardTitle>
+        <CardHeader className=" py-6">
+          <CardTitle className="font-medium text-center text-xl text-red-700">Active Promotions</CardTitle>
         </CardHeader>
         <CardContent>
         {promotions.length === 0 ? <h4 className='text-sm text-slate-400'>
@@ -42,22 +43,21 @@ export const ActivePromotions = () => {
         </h4> :
         (
         <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
-            <thead>
-            <tr>
-                <th className="px-4 py-2 border-b">Name</th>
-                <th className="px-4 py-2 border-b">Team</th>
-            </tr>
-            </thead>
-            <tbody>
+        
             {promotions?.map((promo) => (
-                <tr key={promo?.id} onClick={() => handleClick(promo)} className="cursor-pointer hover:bg-gray-100">
-                <td className="px-4 py-2 border-b text-center">{promo?.name}</td>
-                <td className="px-4 py-2 border-b text-center">{promo?.createdBy?.team}</td>
-                </tr>
+              <div key={promo?.id}
+                className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+              >
+                <PromotionCategoryIcon category={promo.category} size={25} className="h-4 w-4 mx-2" />
+                <div>
+                  <h4 className='font-medium'>{promo?.name}</h4>
+                  <div >
+                    <h6 className='text-xs font-normal'>{convertToTitleCase(promo?.category)}</h6>
+                    <h6 className='text-xs font-normal text-nowrap'>Validity unitl {formatDate(promo?.validTill)}</h6>
+                  </div>
+                </div>
+              </div>
             ))}
-            </tbody>
-        </table>
         </div>
         )}
         </CardContent>

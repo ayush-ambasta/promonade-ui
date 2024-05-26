@@ -33,6 +33,12 @@ function Navbar(){
           >
             Promotions
           </Link>
+          <Link
+            to="/analytics"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Analytics
+          </Link>
           
         </nav>}
         

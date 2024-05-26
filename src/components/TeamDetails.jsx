@@ -26,7 +26,6 @@ export const TeamDetails = () => {
     const teamname = teamName || defaultTeamName;
     try{
       const response = await getByTeam(teamname);
-      console.log(response)
       setTeam(response);
       setloading(false);
     }catch(err){
@@ -37,7 +36,6 @@ export const TeamDetails = () => {
   
   useEffect(() => {
     getByTeamName();
-    console.log(team)
   }, [teamName]);
 
   const openManagerModal = () => {

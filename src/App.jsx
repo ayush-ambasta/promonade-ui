@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import User from './pages/User'
 import Promotion from './pages/Promotion'
+import Analytics from './pages/Analytics'
 import { RequireAuth } from './requireAuth'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<RequireAuth><Promotion/></RequireAuth>}/> 
+          <Route path='/analytics' element={<RequireAuth><Analytics/></RequireAuth>}/> 
           <Route path='/me' element={<RequireAuth><User/></RequireAuth>}/>
           
           

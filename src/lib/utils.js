@@ -13,3 +13,23 @@ export function convertToTitleCase(str) {
 export function convertToSnakeCase(str) {
   return str.split(' ').map(word => word.toUpperCase()).join('_');
 }
+
+export function formatDate(dateTimeString) {
+  // Parse the input date string
+  const date = new Date(dateTimeString);
+
+  // Define options for formatting the date
+  const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      timeZone: 'Asia/Kolkata' // Set timezone to Indian Standard Time (IST)
+  };
+
+  // Format the date using Intl.DateTimeFormat
+  const formatter = new Intl.DateTimeFormat('en-IN', options);
+  return formatter.format(date);
+};

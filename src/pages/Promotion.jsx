@@ -1,18 +1,17 @@
 import React from 'react'
-import { PreviousPromotions } from '@/components/PreviousPromotions';
-import { ActivePromotions } from '@/components/ActivePromotions';
+import { PromotionCategories } from '@/components/PromotionCategories';
+import PromotionList from '@/components/PromotionList';
 
 function Promotion(){
   return (
-    <div className='flex justify-between bg-zinc-50'>
+    <div className='flex'>
       <div>
-        <PreviousPromotions/>
+        <PromotionCategories/>
       </div>
 
-      <div></div>
-      
-      <div>
-        <ActivePromotions/>
+      <div className='w-3/4'>
+        <PromotionList/>
+
       </div>
     </div>
   )
