@@ -3,6 +3,7 @@ import { PromotionCategories } from '@/components/PromotionCategories';
 import PromotionList from '@/components/PromotionList';
 import { useContext, useState, useEffect } from "react";
 import UserContext from '@/contexts/UserContext';
+import { PromotionsProvider } from '@/contexts/PromotionsProvider';
 
 function Promotion(){
 
@@ -14,16 +15,18 @@ function Promotion(){
   const [defaultPromo, setDefaultPromo] = useState(userTeam.replace("_PROMO_TEAM", ""))
   
   return (
-    <div className='flex'>
-      <div>
-        <PromotionCategories defaultPromo={defaultPromo} setDefaultPromo={setDefaultPromo}/>
-      </div>
+    <PromotionsProvider>
+      <div className='flex'>
+        <div>
+          <PromotionCategories defaultPromo={defaultPromo} setDefaultPromo={setDefaultPromo}/>
+        </div>
 
-      <div className='w-3/4'>
-        <PromotionList defaultPromo={defaultPromo}/>
+        <div className='w-3/4'>
+          <PromotionList defaultPromo={defaultPromo}/>
 
+        </div>
       </div>
-    </div>
+    </PromotionsProvider>
   )
 }
 

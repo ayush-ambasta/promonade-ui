@@ -33,3 +33,26 @@ export function formatDate(dateTimeString) {
   const formatter = new Intl.DateTimeFormat('en-IN', options);
   return formatter.format(date);
 };
+
+export function convertToIndianTime(timestamp) {
+  if(timestamp.endsWith("+05:30")){
+    return timestamp.replace("+05:30", "")
+  }
+  const date = new Date(timestamp);
+  const indianTime = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  const formattedIndianTime = indianTime.toISOString().split("T")[0] + "T" + indianTime.toTimeString().split(" ")[0];
+  return formattedIndianTime;
+}
+
+export function isValidDateString(dateString) {
+  const [year, month, day] = dateString.split("-");
+  return /^\d{4}-\d{2}-\d{2}$/.test(dateString) && 
+         !isNaN(Date.parse(dateString)) &&
+         month >= 1 && month <= 12 &&
+         day >= 1 && day <= 31;
+}
+
+export function isValidTimeString(timeString) {
+  const regex = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/;
+  return regex.test(timeString);
+}

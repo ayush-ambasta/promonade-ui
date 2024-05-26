@@ -161,7 +161,7 @@ export const PreviousPromotions = () => {
         (<>
           <div className="flex-1">
             <nav className="grid items-start pl-4 font-medium lg:pr-4 ">
-            <ToggleGroup className="flex-col" type="single">
+            <ToggleGroup className="flex-col items-start" type="single">
 
               {promotions?.map((promo) => (
               <ToggleGroupItem value={promo.id} key={promo.id} className=" text-left px-0 pr-1 py-7">

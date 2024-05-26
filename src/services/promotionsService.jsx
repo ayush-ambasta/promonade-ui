@@ -48,7 +48,7 @@ export const getAllPromotions = async() => {
         }
     }
     catch(e){
-        alert('Error: ' + e.response.data.message);s
+        alert('Error: ' + e.response.data.message);
     }
 }
 
@@ -74,7 +74,7 @@ export const getNotApprovedPromotions = async ()=>{
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);s
+        alert('Error: ' + e.response.data.message);
     }
 }
 
@@ -100,7 +100,7 @@ export const approvePromotion = async (id)=>{
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);s
+        alert('Error: ' + e.response.data.message);
     }
 }
 
@@ -126,7 +126,7 @@ export const disapprovePromotion = async (id)=>{
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);s
+        alert('Error: ' + e.response.data.message);
     }
 }
 
@@ -153,7 +153,63 @@ export const deletePromotion = async (id)=>{
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);s
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+
+export const editPromotion = async (id, promotionChanges)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/promotions/${id}`,
+            {
+                method: 'PATCH',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                data: JSON.stringify(promotionChanges)
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+
+export const createPromotion = async (promotion)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/promotions/create`,
+            {
+                method: 'POST',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                data: JSON.stringify(promotion)
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
     }
 }
 

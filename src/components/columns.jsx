@@ -1,4 +1,4 @@
-import { convertToTitleCase, formatDate } from "@/lib/utils"
+import { convertToTitleCase, formatDate, convertToIndianTime } from "@/lib/utils"
 import {
     SquareCheckBig, CircleOff
 } from "lucide-react"
@@ -30,25 +30,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { deletePromotion } from "@/services/promotionsService"
 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
-async function deletePromotionWithID(id, validFrom, approved){
-  const currentDate = Date.now()
-  const validity = Date.parse(validFrom)
-  if((currentDate > validity) && approved){
-    alert("You cannot delete this promotion. It was once Live!")
-  } else {
-    await deletePromotion(id)
-  }
-}
+import EditPromotion from "./EditPromotion"
 
 
 
 export const columns = [
   {
     accessorKey: "_id",
-    header: "ID",
+    header: "Index",
   },
   {
     accessorKey: "name",
@@ -131,40 +129,55 @@ export const columns = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
+  
       const promotion = row.original
+      const meta = table.options
+
+      const deleteRow = (id, validFrom) => {
+        meta?.removeRow(id, validFrom )
+      }
+
       return (
         <AlertDialog>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem >
-                <AlertDialogTrigger className="text-red-800 font-normal">Delete</AlertDialogTrigger>
-              </DropdownMenuItem>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem >
+                  <AlertDialogTrigger className="text-red-800 font-normal">Delete</AlertDialogTrigger>
+                </DropdownMenuItem>
+                <DropdownMenuItem >
+                  <DialogTrigger>Edit</DialogTrigger>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          {/* Delete action dialog */}
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete the promotion "{promotion.name}". Are you sure?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={()=>{deletePromotionWithID(promotion.id, promotion.validFrom, promotion.approved)}}>Continue</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
+            {/* Delete action */}
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete the promotion "{promotion.name}". Are you sure?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={()=>{deleteRow(promotion.id, promotion.validFrom)}}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          
+            {/* Edit Promotion  */}
+            <EditPromotion promotion={promotion}/>
+
+          </Dialog>
         </AlertDialog>
       )
     },

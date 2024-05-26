@@ -1,5 +1,3 @@
-"use client"
-
 import {
   flexRender,
   getCoreRowModel,
@@ -15,14 +13,36 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { deletePromotion } from "@/services/promotionsService"
+import PromotionsContext from "@/contexts/PromotionsContext";
+import { useContext } from "react";
+
 
 
 export function DataTable({ columns, data }) {
+
+  const {dispatch} = useContext(PromotionsContext)
+
+  async function deletePromotionWithID(id, validFrom){
+    const currentDate = Date.now()
+    const validity = Date.parse(validFrom)
+    if(currentDate > validity){
+      alert("You cannot delete this promotion. It was once Live!")
+    } else {
+      const resp = await deletePromotion(id)
+      if(resp.success)
+        dispatch({type: "DELETE", payload: {id: id}})
+    }
+  }
+
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    removeRow:(id, validFrom) => {
+      deletePromotionWithID(id, validFrom )
+    }
   })
 
   return (
