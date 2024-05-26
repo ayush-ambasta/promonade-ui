@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { convertToTitleCase, convertToSnakeCase } from '@/lib/utils';
 import { PromotionCategoryIcon } from './PromoCategoryIcon';
 import {
@@ -10,10 +10,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 
-
-
-
-export const PromotionCategories = () => {
+export const PromotionCategories = ({defaultPromo, setDefaultPromo}) => {
 
   return (
     <div className="grid auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen border-r-[1px] border-solid border-grey ">
@@ -27,7 +24,7 @@ export const PromotionCategories = () => {
   
           <div className="flex-1 ">
             <nav className="grid pl-4 font-medium  ">
-            <ToggleGroup className="flex-col items-start" type="single">
+            <ToggleGroup className="flex-col items-start" type="single" defaultValue={defaultPromo} onValueChange={(value) => setDefaultPromo(value)}>
 
                 <ToggleGroupItem value="MILESTONE"  className=" text-left px-4 ">
                     <div className="flex cursor-pointer w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">

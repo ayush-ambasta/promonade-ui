@@ -19,13 +19,35 @@ import { Label } from "@radix-ui/react-dropdown-menu"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { MoreHorizontal } from "lucide-react"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { deletePromotion } from "@/services/promotionsService"
 
+
+async function deletePromotionWithID(id, validFrom, approved){
+  const currentDate = Date.now()
+  const validity = Date.parse(validFrom)
+  if((currentDate > validity) && approved){
+    alert("You cannot delete this promotion. It was once Live!")
+  } else {
+    await deletePromotion(id)
+  }
+}
 
 
 
 export const columns = [
   {
-    accessorKey: "id",
+    accessorKey: "_id",
     header: "ID",
   },
   {
@@ -110,23 +132,40 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original
- 
+      const promotion = row.original
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-800 font-normal">Delete </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <AlertDialog>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem >
+                <AlertDialogTrigger className="text-red-800 font-normal">Delete</AlertDialogTrigger>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Edit</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Delete action dialog */}
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the promotion "{promotion.name}". Are you sure?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={()=>{deletePromotionWithID(promotion.id, promotion.validFrom, promotion.approved)}}>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       )
     },
   },

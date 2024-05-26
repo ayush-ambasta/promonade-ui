@@ -25,7 +25,7 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
 
-const PromotionList = () =>{
+const PromotionList = ({defaultPromo}) =>{
 
     const { state } = useContext(UserContext);
     const user = state.user;
@@ -38,13 +38,19 @@ const PromotionList = () =>{
 
     async function fetchPromotions(){
         const data = await getAllPromotions()
-        console.log(data, "promotions")
-        setPromotions(data)
+        // console.log(data)
+        const filteredData = data.filter(promo => defaultPromo===promo.category && promo.approved)
+        filteredData.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
+        const newData = filteredData.map((item, index) => ({
+            ...item,
+            _id: index + 1 // Incrementing id values
+        }));
+        setPromotions(newData)
     }
 
     useEffect(()=>{
         fetchPromotions()
-    }, [])
+    }, [defaultPromo])
 
     return (
         <div className="m-8 w-full">
