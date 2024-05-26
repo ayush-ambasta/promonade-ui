@@ -17,9 +17,9 @@ function Navbar(){
     navigate('/login');
   }
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between">
-        <h1 className="text-lg font-bold">Promonade</h1>
-        {user && <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between z-20">
+        <h1 className="text-lg font-bold sm:order-2 lg:order-1">Promonade</h1>
+        {user && <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 lg:order-2">
         
           <Link
             to="/me"
@@ -41,7 +41,7 @@ function Navbar(){
           </Link>
           
         </nav>}
-        
+        {user && 
         <Sheet>
           <SheetTrigger asChild>
             <Button
@@ -54,24 +54,29 @@ function Navbar(){
             </Button>
           </SheetTrigger>
           <SheetContent side="left">
-            <nav className="grid gap-6 text-lg font-medium">
-              <h1>Promonade</h1>
+            <nav className="grid gap-6 text-lg font-medium sm:order-1">
               <Link
-                to="/"
+                to="/me"
                 className="text-muted-foreground hover:text-foreground"
               >
                 User
               </Link>
               <Link
-                to="/promotion"
+                to="/"
                 className="text-muted-foreground hover:text-foreground"
               >
                 Promotions
               </Link>
+              <Link
+                to="/analytics"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Analytics
+              </Link>
             </nav>
           </SheetContent>
-        </Sheet>
-        <div>
+        </Sheet>}
+        <div className="sm:order-3 lg:order-3">
           {user === null ? (<Button><Link to="/login">Login</Link></Button>) : (
             <Button onClick={handleLogout}>Log Out</Button>
           )}
