@@ -11,6 +11,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
   } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -106,7 +107,10 @@ const FilterPromotionList = ({defaultPromo}) => {
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button className="h-8 w-3/12 self-center mt-4" onClick={filterPromotions}>Filter</Button>
+                    <DialogClose asChild>
+                        <Button className="h-8 w-3/12 self-center mt-4" onClick={filterPromotions}>Filter</Button>
+                    </DialogClose>
+                    
                 </div>
                 </DialogHeader>
             </DialogContent>

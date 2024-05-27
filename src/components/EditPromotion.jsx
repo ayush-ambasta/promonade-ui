@@ -4,15 +4,16 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
   } from "@/components/ui/dialog"
   
-  import {
+import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
+} from "@/components/ui/select"
 
 import { Label } from "@radix-ui/react-dropdown-menu"
 import { Input } from "./ui/input"
@@ -186,7 +187,9 @@ const EditPromotion = ({promotion}) => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <Button className="h-8 w-3/12 self-center mt-4" onClick={savePromotionValues}>Save</Button>
+                    <DialogClose asChild>
+                        <Button className="h-8 w-3/12 self-center mt-4" onClick={savePromotionValues}>Save</Button>
+                    </DialogClose>
                 </div>
                 </div>
             </DialogHeader>

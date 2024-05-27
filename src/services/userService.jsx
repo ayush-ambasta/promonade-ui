@@ -30,7 +30,7 @@ export const getByTeam = async (teamName)=>{
     const token = user.accessToken;
     
     try{
-        const response = await axios(`${BASE_URL}/api/user/team-users?team=${teamName}`,
+        const response = await axios(`${BASE_URL}/api/user/team-users?team=${teamName}`, //check gender?
             {
                 method: 'GET',
                 headers: { 

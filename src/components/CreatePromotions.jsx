@@ -11,6 +11,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
   } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -193,7 +194,9 @@ const CreatePromotion = ({defaultPromo}) => {
                 </div>
                 </div>
                 <div className="flex justify-center">
-                <Button className="h-8 w-3/12 self-center mt-4" onClick={savePromotionValues}>Save</Button>
+                    <DialogClose asChild>
+                        <Button className="h-8 w-3/12 self-center mt-4" onClick={savePromotionValues}>Save</Button>
+                    </DialogClose>
                 </div>
             </div>
         </DialogHeader>

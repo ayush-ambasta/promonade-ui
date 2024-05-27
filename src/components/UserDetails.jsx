@@ -15,10 +15,10 @@ export const UserDetails = () => {
   const user = state.user;
   
   return (
-    <Card x-chunk="dashboard-07-chunk-0">
+    <Card x-chunk="dashboard-07-chunk-0" className="border-0">
         <CardHeader>
         <CardTitle>
-            <div className='flex justify-around w-4/12 items-center'>
+            <div className='flex justify-start gap-3 items-center text-3xl font-normal text-gray-700'>
                 <CircleUserRound size={40}/> User Details
             </div>
         </CardTitle>

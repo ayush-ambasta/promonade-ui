@@ -7,9 +7,41 @@ import {
     CardTitle,
   } from "@/components/ui/card"
 import UserContext from '@/contexts/UserContext';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 import { addUser, deleteUser, getByTeam } from '@/services/userService';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
+} from "@/components/ui/dialog"
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const teams = ["MILESTONE_PROMO_TEAM", "REFERRAL_PROMO_TEAM", "HIGHPURCHASE_PROMO_TEAM", "LOYALTY_PROMO_TEAM", "FLASHSALE_PROMO_TEAM", "SEASONAL_PROMO_TEAM"];
+const roles = ["MANAGER", "OWNER"]
 
 export const TeamDetails = () => {
   const {state,teamName} = useContext(UserContext);  
@@ -17,9 +49,8 @@ export const TeamDetails = () => {
   const [team, setTeam] = useState();
   const defaultTeamName = user?.team;
   const [loading, setloading] = useState(true);
-  const [isManagerModalOpen, setIsManagerModalOpen] = useState(false);
-  const [isOwnerModalOpen, setIsOwnerModalOpen] = useState(false);
-  const [newMember, setNewMember] = useState({ name: '', username: '', password: '', email: '', role: '', team: '' });
+  const [key, setKey] = React.useState(+new Date())
+  const [newMember, setNewMember] = useState({ name: '', username: '', password: '', email: '', role: '', team: user?.team });
   
   
   const getByTeamName = async ()=>{
@@ -38,35 +69,43 @@ export const TeamDetails = () => {
     getByTeamName();
   }, [teamName]);
 
-  const openManagerModal = () => {
-    setNewMember({ ...newMember, role: 'MANAGER', team: user.team });
-    setIsManagerModalOpen(true);
-  };
-
-  const openOwnerModal = () => {
-    setNewMember({ ...newMember, role: 'OWNER' });
-    setIsOwnerModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsManagerModalOpen(false);
-    setIsOwnerModalOpen(false);
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // console.log(name, value);
     setNewMember({ ...newMember, [name]: value });
   };
 
+  const handleRoleChange = (value) => {
+    if(value==="MANAGER"){
+      setKey(+new Date())
+      handleTeamChange(user?.team)
+    }
+    setNewMember({ ...newMember, role: value });
+  };
+
+  const handleTeamChange = (value) => {
+    newMember.team = value
+    setNewMember(newMember);
+  };
+
   const handleAddMember = async() => {
+    console.log(newMember)
+    if (!newMember.name || !newMember.username || !newMember.password || !newMember.email || !newMember.role || !newMember.team) {
+      alert('All fields need to be filled.');
+      return; // Exit the function early if any field is empty
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newMember.email)) {
+        alert('Invalid email format.');
+        return; // Exit the function early if email format is invalid
+    }
     await addUser(newMember);
     getByTeamName(newMember.team);
-    closeModal();
   };
 
   const handleDelete = async (username) => {
     await deleteUser(username);
+    
     setTeam(team.filter(member => member.username !== username));
   };
 
@@ -75,144 +114,166 @@ export const TeamDetails = () => {
   }
   return (
     
-      <Card x-chunk="dashboard-07-chunk-3">
+      <Card x-chunk="dashboard-07-chunk-3" className="border-0">
         <CardHeader>
-          <CardTitle>Team Details</CardTitle>
+          <CardTitle className="font-normal text-2xl text-slate-700 mb-2">Team Details</CardTitle>
           
         </CardHeader>
         <CardContent>
-        <div className="container mx-auto p-4">
-        <h2 className='font-semibold text-xl'>{(teamName && convertToTitleCase(teamName)) || (defaultTeamName && convertToTitleCase(defaultTeamName)) }</h2>
-        <div className="flex justify-end mb-4">
-            {user.role === 'OWNER' && (
-            <>
-                <button onClick={openManagerModal} className="bg-black text-white px-3 py-1 rounded text-xs mr-2">Add Manager</button>
-                <button onClick={openOwnerModal} className="bg-black text-white px-3 py-1 rounded text-xs">Add Owner</button>
-            </>
-            )}
-        </div>
-        {
-          team.length>0 ?
-        
-          (<table className="min-w-full bg-white border">
-              <thead>
-              <tr className='border'>
-                  <th className="py-2 text-sm">Username</th>
-                  <th className="py-2 text-sm">Name</th>
-                  <th className="py-2 text-sm">Email</th>
-                  <th className="py-2 text-sm">Role</th>
-                  {user.role === 'OWNER' && user?.team===team[0]?.team && <th className="py-2 text-sm">Actions</th>}
-              </tr>
-              </thead>
-              <tbody>
-              {team.map(member => (
-                  <tr key={member.username} className="text-center border">
-                  <td className="py-2 text-sm">{member.username}</td>
-                  <td className="py-2 text-sm">{member.name}</td>
-                  <td className="py-2 text-sm">{member.email}</td>
-                  <td className="py-2 text-sm">{convertToTitleCase(member.role)}</td>
-                  {user.role === 'OWNER' && (
-                      <td className="py-2">
-                      {member.role !== 'OWNER' && user?.team === member?.team && (
-                          <button onClick={() => handleDelete(member.username)} className="bg-black text-white px-3 py-1 rounded text-xs">Delete</button>
-                      )}
-                      </td>
-                  )}
-                  </tr>
-              ))}
-              </tbody>
-          </table>):
-          (
-            <div className='text-center text-sm'>
-              Nothing to show
+        <div className="container mx-auto p-4 pt-0">
+          <div className='flex justify-between items-center mb-6'>
+            <h2 className='font-normal text-lg text-slate-800'>{(teamName && convertToTitleCase(teamName)) || (defaultTeamName && convertToTitleCase(defaultTeamName)) }</h2>
+            <div className="flex justify-end ">
+                {user.role === 'OWNER' && (
+                <>
+                    <Dialog>
+                      <DialogTrigger className="bg-black text-white px-3 py-1 rounded text-xs mr-2">
+                        Add Member
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle className="mb-4">Add Member</DialogTitle>
+                          <div >
+                              <div className="flex my-2 text-xs justify-between items-center">
+                                <Label className="text-black font-normal">Name</Label>
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    onChange={handleInputChange}
+                                    className="text-xs w-2/5 py-2"
+                                />
+                              </div>
+                              <div className="flex my-2 text-xs justify-between items-center">
+                                <Label className="text-black font-normal">Username</Label>
+                                <Input
+                                    type="text"
+                                    name="username"
+                                    onChange={handleInputChange}
+                                    className="text-xs w-2/5 py-2"                                />
+                                </div>
+                              <div className="flex my-2 text-xs justify-between items-center">
+                                <Label className="text-black font-normal">Password</Label>
+                                <Input
+                                    type="password"
+                                    name="password"
+                                    onChange={handleInputChange}
+                                    className="text-xs w-2/5 py-2"                                />
+                              </div>
+                              <div className="flex my-2 text-xs justify-between items-center">
+                                <Label className="text-black font-normal">Email</Label>
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    onChange={handleInputChange}
+                                    className="text-xs w-2/5 py-2"                                />
+                              </div>
+                              <div className="flex my-2 text-xs justify-between items-center">
+                                <Label className="text-black font-normal">Role</Label>
+                                <Select
+                                    name="role"
+                                    onValueChange={handleRoleChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                >
+                                  <SelectTrigger className="w-2/5 text-xs">
+                                      <SelectValue placeholder="Select Role" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {roles.map(role => (
+                                      <SelectItem key={role} value={role}>{convertToTitleCase(role)}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="flex my-2 text-xs justify-between items-center">
+                                <Label className="text-black font-normal">Team</Label>
+                                <Select
+                                    key={key}
+                                    name="team"
+                                    defaultValue={user?.team}
+                                    onValueChange={handleTeamChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    disabled={newMember.role === 'MANAGER'}
+                                >
+                                  <SelectTrigger className="w-2/5 text-xs">
+                                      <SelectValue placeholder="Select Team" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {teams.map(team => (
+                                      <SelectItem key={team} value={team}>{convertToTitleCase(team)}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="flex justify-center">
+                                <DialogClose asChild>
+                                  <Button className="h-8 w-3/12 self-center mt-4" onClick={handleAddMember}>Add</Button>
+                                </DialogClose>
+                                
+                              </div>
+                          </div>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                </>
+                )}
             </div>
-          )
+          </div>
+          {
+            team.length>0 ?
           
-        }
+            (<table className="min-w-full bg-white border">
+                <thead>
+                <tr className='border'>
+                    <th className="py-2 text-xs">Username</th>
+                    <th className="py-2 text-xs">Name</th>
+                    <th className="py-2 text-xs">Email</th>
+                    <th className="py-2 text-xs">Role</th>
+                    {user.role === 'OWNER' && user?.team===team[0]?.team && <th className="py-2 text-xs">Actions</th>}
+                </tr>
+                </thead>
+                <tbody>
+                
+                  {team.map(member => (
+                      <tr key={member.username} className="text-center border">
+                      <td className="py-2 text-xs">{member.username}</td>
+                      <td className="py-2 text-xs">{member.name}</td>
+                      <td className="py-2 text-xs">{member.email}</td>
+                      <td className="py-2 text-xs">{convertToTitleCase(member.role)}</td>
+                      {user.role === 'OWNER' && (
+                          <td className="py-2">
+                            
+                          {member.role !== 'OWNER' && user?.team === member?.team && (
+                            <AlertDialog>
+                              <AlertDialogTrigger  className="bg-black text-white px-3 py-1 rounded text-xs">Delete</AlertDialogTrigger>
 
-        {isManagerModalOpen || isOwnerModalOpen ? (
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
-                <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">
-                    {newMember.role === 'MANAGER' ? 'Add Manager' : 'Add Owner'}
-                </h3>
-                <button onClick={closeModal} className="bg-black text-white px-3 py-1 rounded text-xs">
-                    <span className="text-xl">&times;</span>
-                </button>
-                </div>
-                <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={newMember.name}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-                </div>
-                <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={newMember.username}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-                </div>
-                <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={newMember.password}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-                </div>
-                <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={newMember.email}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-                </div>
-                <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Role</label>
-                <input
-                    type="text"
-                    name="role"
-                    value={newMember.role}
-                    readOnly
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
-                />
-                </div>
-                <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Team</label>
-                <select
-                    name="team"
-                    value={newMember.team}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    disabled={newMember.role === 'MANAGER'}
-                >
-                    <option value="">Select An option</option>
-                    {teams.map(team => (
-                    <option key={team} value={team}>{team}</option>
-                    ))}
-                </select>
-                </div>
-                <div className="flex justify-end">
-                <button onClick={handleAddMember} className="bg-black text-white px-3 py-1 rounded text-xs mr-2">Add</button>
-                <button onClick={closeModal} className="bg-black text-white px-3 py-1 rounded text-xs">Cancel</button>
-                </div>
-            </div>
-            </div>
-        ) : null}
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete the user "{member.name}". Are you sure?
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDelete(member.username)}>Continue</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                              </AlertDialog>
+                          )}
+                          </td>
+                      )}
+                      </tr>
+                  ))}
+                </tbody>
+                
+            </table>):
+            (
+              <div className='text-center text-sm'>
+                There are no members.
+              </div>
+            )
+            
+          }
         </div>
         </CardContent>
       </Card>
