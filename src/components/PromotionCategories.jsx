@@ -16,7 +16,7 @@ export const PromotionCategories = ({defaultPromo, setDefaultPromo}) => {
     <div className="grid auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen border-r-[1px] border-solid border-grey ">
       <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
         <CardHeader>
-          <CardTitle className="font-normal text-xl py- text-slate-600">Promotion Categories</CardTitle>
+          <CardTitle className="font-normal text-xl text-slate-600">Promotion Categories</CardTitle>
         </CardHeader>
 
         
