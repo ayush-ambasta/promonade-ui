@@ -11,7 +11,7 @@ function Analytics(){
 
       <div></div>
       
-      <div className='w-1/5 relative'>
+      <div className='w-1/4 relative'>
         <ActivePromotions/>
       </div>
     </div>

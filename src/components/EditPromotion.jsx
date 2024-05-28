@@ -69,7 +69,7 @@ const EditPromotion = ({promotion}) => {
                 ageCategory, maritalStatus, gender, productType
             }
         })
-        dispatch({type:'EDIT',payload:{id: promotion.id, promotion: promotion}})
+        dispatch({type:'EDIT',payload:{id: promo.id, promotion: promo}})
     }
 
     
