@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/dialog"
 
 import EditPromotion from "./EditPromotion"
+import { Link } from "react-router-dom"
 
 
 
@@ -135,6 +136,7 @@ export const columns = [
         meta?.removeRow(id, validFrom )
       }
 
+      
       return (
         <AlertDialog>
           <Dialog>
@@ -154,6 +156,12 @@ export const columns = [
                 <DropdownMenuItem >
                   <DialogTrigger>Edit</DialogTrigger>
                 </DropdownMenuItem>
+                {new Date(promotion.validTill) < Date.now() && (
+                  <DropdownMenuItem >
+                    <Link to={"/analytics?id=" + promotion.id}>Analyse</Link>
+                  </DropdownMenuItem>
+                )
+                }
               </DropdownMenuContent>
             </DropdownMenu>
 

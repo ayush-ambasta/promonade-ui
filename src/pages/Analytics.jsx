@@ -1,7 +1,8 @@
 import React from 'react'
 import { PreviousPromotions } from '@/components/PreviousPromotions';
 import { ActivePromotions } from '@/components/ActivePromotions';
-import Analysis from '@/components/Analysis';
+import PromotionAnalysis from '@/components/PromotionAnalysis';
+import BusinessAnalysis from '@/components/BusinessAnalysis';
 
 function Analytics(){
   return (
@@ -11,7 +12,8 @@ function Analytics(){
       </div>
 
       <div className='w-7/12'>
-        <Analysis/>
+        <PromotionAnalysis/>
+        <BusinessAnalysis/>
       </div>
       
       <div className='w-1/5 mr-2 relative'>

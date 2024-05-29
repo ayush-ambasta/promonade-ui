@@ -16,6 +16,9 @@ const PromotionList = ({defaultPromo}) =>{
 
     const { state } = useContext(UserContext);
     const user = state.user;
+    const userTeam = user.team
+
+    const [allowedPromo, setAllowedPromo] = useState(userTeam.replace("_PROMO_TEAM", ""))
     const { promotions , dispatch } = useContext(PromotionsContext)
 
     const [searchInput, setSearchInput] = useState("");
@@ -74,7 +77,7 @@ const PromotionList = ({defaultPromo}) =>{
                     </div>
 
                     <FilterPromotionList defaultPromo={defaultPromo}/>
-                    <CreatePromotion defaultPromo={defaultPromo}/>
+                    {allowedPromo===defaultPromo && <CreatePromotion defaultPromo={defaultPromo}/>}
 
                 </div>
             </div>

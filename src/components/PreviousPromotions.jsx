@@ -10,7 +10,6 @@ import {
 import { Button } from './ui/button';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { getApprovedPromotions } from '@/services/promotionsService';
-import UserContext from '@/contexts/UserContext';
 import {
   Search,
   Frown
@@ -30,12 +29,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
+import { Link } from 'react-router-dom';
 
 
 export const PreviousPromotions = () => {
     
-    const {setteamName} = useContext(UserContext);
     const [searchInput, setSearchInput] = useState("");
     const [promotionCategory, setPromotionCategory] = useState("")
     const [promotionType, setPromotionType] = useState("")
@@ -160,12 +158,13 @@ export const PreviousPromotions = () => {
 
         (<>
           <div className="flex-1">
-            <nav className="grid items-start pl-4 font-medium pr-0 ">
+            <nav className="grid items-start pl-4 font-medium pr-3 ">
             <ToggleGroup className="flex-col items-start" type="single">
 
               {promotions?.map((promo) => (
-              <ToggleGroupItem value={promo.id} key={promo.id} className=" text-left px-0 pr-1 py-7">
-              <div
+              <ToggleGroupItem value={promo.id} key={promo.id} className=" text-left px-0 pr-1 py-8">
+               
+              <Link to={"/analytics?id=" + promo.id}
                 className="flex cursor-pointer justify-between items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <PromotionCategoryIcon category={promo.category} size={25} className="h-4 w-4 mx-2" />
@@ -173,7 +172,7 @@ export const PreviousPromotions = () => {
                   <h4 className='text-sm'>{promo?.name}</h4>
                   <h6 className='text-xs font-normal'>{convertToTitleCase(promo?.category)}</h6>
                 </div>
-              </div>
+              </Link>
               </ToggleGroupItem>
               ))}
 

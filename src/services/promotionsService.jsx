@@ -213,3 +213,28 @@ export const createPromotion = async (promotion)=>{
     }
 }
 
+export const getPromotionById = async (id)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/promotions/${id}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
