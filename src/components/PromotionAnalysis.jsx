@@ -76,7 +76,7 @@ const PromotionAnalysis = () => {
                 <PromotionCategoryIcon category={Promotion.category} size={35}/>
             </div>
             <div>
-                <Input type="number" min="0" max="10"/>
+                
             </div>
             <div className="flex-col mt-5">
                 <div className="flex justify-around gap-3">
