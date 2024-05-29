@@ -53,18 +53,18 @@ const PromotionList = ({defaultPromo}) =>{
       }, [defaultPromo]);
 
     return (
-        <div className="m-8 w-full">
+        <div className="m-8 w-full overflow-x-auto mx-1">
             <div>
                 <h1 className="text-3xl text-gray-600 font-semibold">Welcome Back, {user? convertToTitleCase(user.username): "User"}!</h1>
             </div>
-            <div className="flex justify-between items-center my-8">
+            <div className="justify-between items-center my-8 flex flex-col lg:flex-row">
                 <div>
                     <h2 className="text-2xl font-normal text-gray-700">Promotions List</h2>
                 </div>
-                <div className="flex items-center w-6/12">
+                <div className="flex justify-center w-full lg:w-6/12">
 
                     {/* Search Button */}
-                    <div className='flex justify-center my-2'>
+                    <div className='flex my-2 mx-2'>
                         <div className="relative text-gray-600 px-3 flex items-center justify-around shadow-[1px_1px_9px_-4px_rgba(0,0,0,0.31)] rounded-xl ">
                             <input type="search" name="search" placeholder="Search by name or creator" onChange={(e)=>{setSearchInput(e.target.value)}} className="bg-white w-48  pl-2 py-2 rounded-full text-xs focus:outline-none"/>
                             <button type="submit" onClick={searchPromotions}>
@@ -72,10 +72,14 @@ const PromotionList = ({defaultPromo}) =>{
                             </button>
                         </div>
                     </div>
-
-                    <FilterPromotionList defaultPromo={defaultPromo}/>
-                    <CreatePromotion defaultPromo={defaultPromo}/>
-
+                    <div className="flex flex-row">
+                        <div className="mx-2">
+                            <FilterPromotionList defaultPromo={defaultPromo}/>
+                        </div>
+                        <div>
+                            <CreatePromotion defaultPromo={defaultPromo}/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div>

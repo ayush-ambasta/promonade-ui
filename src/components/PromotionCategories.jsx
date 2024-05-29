@@ -1,30 +1,29 @@
 import React from 'react'
 import { convertToTitleCase, convertToSnakeCase } from '@/lib/utils';
 import { PromotionCategoryIcon } from './PromoCategoryIcon';
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 
 export const PromotionCategories = ({defaultPromo, setDefaultPromo}) => {
 
   return (
-    <div className="grid auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen border-r-[1px] border-solid border-grey ">
-      <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
-        <CardHeader>
-          <CardTitle className="font-normal text-xl text-slate-600">Promotion Categories</CardTitle>
-        </CardHeader>
+    // <div className="grid auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen border-r-[1px] border-solid border-grey ">
+    //   <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
+    //     <CardHeader>
+    //       <CardTitle className="font-normal text-xl py- text-slate-600">Promotion Categories</CardTitle>
+    //     </CardHeader>
 
         
-        <CardContent className="px-0">
-  
-          <div className="flex-1 ">
-            <nav className="grid pl-4 font-medium  ">
-            <ToggleGroup className="flex-col items-start" type="single" defaultValue={defaultPromo} onValueChange={(value) => setDefaultPromo(value)}>
+    //     <CardContent className="px-0">
+    <div className="flex max-h-screen flex-col lg:shadow-md lg:h-screen">
+        <div className="flex flex-col items-center p-4 lg:px-6">
+              <span className="font-normal text-xl text-slate-600">Promotion Categories</span>
+              <hr className='mt-2.5 h-1 w-full'></hr>
+        </div>
+        <div className="flex-1 ">
+            <nav className="grid pl-4 font-medium">
+            <ToggleGroup className="flex-col lg:items-start" type="single" defaultValue={defaultPromo} onValueChange={(value) => setDefaultPromo(value)}>
 
                 <ToggleGroupItem value="MILESTONE"  className=" text-left px-4 ">
                     <div className="flex cursor-pointer w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
@@ -70,9 +69,7 @@ export const PromotionCategories = ({defaultPromo, setDefaultPromo}) => {
 
             </ToggleGroup>
             </nav>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
     </div>
   )
 }
