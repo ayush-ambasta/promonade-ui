@@ -14,13 +14,13 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Button } from "./ui/button"
-import { convertToTitleCase, formatDate, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
+import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { MoreHorizontal } from "lucide-react"
 import { approvePromotion, disapprovePromotion } from "@/services/promotionsService"
 import UserContext from "@/contexts/UserContext"
 import { useContext } from "react"
 
-const AuditPromotion = ({promotion, setPromotions, promotions}) => {
+const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
     const { state } = useContext(UserContext);
     const user = state.user;
 
@@ -152,6 +152,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions}) => {
                             </Select>
                         </div>
                     </div>
+                    {!analytics &&
                     <div className="flex justify-around">
                         {(user?.role==="OWNER")?
                             <>
@@ -167,7 +168,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions}) => {
                             </SheetClose>
                         }
                         
-                    </div>
+                    </div>}
                 </div>
             </SheetHeader>
         </SheetContent>

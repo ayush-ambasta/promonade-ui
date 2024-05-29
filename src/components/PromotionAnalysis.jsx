@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PromotionCategoryIcon } from "./PromoCategoryIcon";
-import { convertToTitleCase, formatDate } from "@/lib/utils";
+import { convertToTitleCase, formatDateToISTWords, convertToIndianDateObject } from "@/lib/utils";
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Coins, Wallet, Banknote, PersonStanding, Gem, LampDesk
 } from "lucide-react"
 import { getPromotionById,getApprovedPromotions } from "@/services/promotionsService";
-import { Input } from "./ui/input";
+import { DatePickerWithRange } from "./DateRangePicker";
+import { addDays, format } from "date-fns"
+import { Button } from "./ui/button";
+import AuditPromotion from "./AuditPromotion";
+import {
+    Sheet,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
 
 const PromotionAnalysis = () => {
     const location = useLocation();
     const [promotionRevenueData, setPromotionRevenueData] = useState([])
     const [Promotion, setPromotion] = useState(null)
+    const [date, setDate] = useState({
+        from: new Date(2024, 4, 20),
+        to: addDays(new Date(2024, 5, 5), 30),
+      })
 
-    const data = {
-        dates: ["2024-04-25T08:18:02.260+00:00", "2024-04-26T08:18:02.260+00:00", "2024-04-27T08:18:02.260+00:00", "2024-04-28T08:18:02.260+00:00", "2024-04-29T08:18:02.260+00:00"],
-        revenues: [500, 200, 250, 170, 400]
-    }
+    
 
     async function getPromotion(id){
         const promotion = await getPromotionById(id);
@@ -29,7 +37,6 @@ const PromotionAnalysis = () => {
         if(validTill<today){
             return true;
         }
-        
         return false;
     }
 
@@ -38,10 +45,25 @@ const PromotionAnalysis = () => {
         setPromotion(data.filter(checkVaildTill)[0]);
     }
 
+    function performAnalysis(){
+        const validFrom = convertToIndianDateObject(Promotion.validFrom)
+        const validTill = convertToIndianDateObject(Promotion.validTill)
+        if(date.from>=validFrom && date.to<=validTill){
+            console.log("Valid")
+        } else {
+            alert("Pick a Date Range within the validity period of the promotion.")
+        }
+    }
+
+    const data = {
+        dates: ["2024-04-25T08:18:02.260+00:00", "2024-04-26T08:18:02.260+00:00", "2024-04-27T08:18:02.260+00:00", "2024-04-28T08:18:02.260+00:00", "2024-04-29T08:18:02.260+00:00"],
+        revenues: [500, 200, 250, 170, 400]
+    }
+
     function reformatData(data){
         let newData = []
         for(var i=0; i<data.dates.length; i++){
-            const formattedDate = formatDate(data.dates[i]).split(',')[0]
+            const formattedDate = formatDateToISTWords(data.dates[i]).split(',')[0]
             const split_date = formattedDate.split(' ')
             let temp = {
                 date: split_date.pop() + " " + split_date.pop(),
@@ -75,9 +97,17 @@ const PromotionAnalysis = () => {
                 <h1  className=" p-3 font-normal text-sm text-slate-500"> Your Analytics For Promotion: &nbsp;&nbsp;&nbsp; <span className="text-2xl text-slate-700 font-normal">{Promotion.name} </span></h1>
                 <PromotionCategoryIcon category={Promotion.category} size={35}/>
             </div>
-            <div>
-                
+
+            <div className="p-4 bg-white rounded-lg w-fit mx-auto flex items-center gap-5">
+                <Sheet >
+                    <h4 className="text-sm text-slate-600">Analysis Period</h4>
+                    <DatePickerWithRange date={date} setDate={setDate} />
+                    <Button className="h-8" onClick={performAnalysis}>Analyse</Button>
+                    <SheetTrigger className="bg-slate-800 text-white rounded-lg text-sm px-3 p-2">Promotion Details</SheetTrigger>
+                    <AuditPromotion promotion={Promotion} analytics={true}/>
+                </Sheet>
             </div>
+
             <div className="flex-col mt-5">
                 <div className="flex justify-around gap-3">
                     <div id="revenue-conversion-rate" className="flex bg-white rounded-2xl items-center gap-5 p-5 justify-around">

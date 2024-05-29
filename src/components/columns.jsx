@@ -1,4 +1,4 @@
-import { convertToTitleCase, formatDate, convertToIndianTime } from "@/lib/utils"
+import { convertToTitleCase, formatDateToISTWords, convertToIndianTime } from "@/lib/utils"
 import {
     SquareCheckBig, CircleOff
 } from "lucide-react"
@@ -83,7 +83,7 @@ export const columns = [
     header: "Valid From",
     cell: ({row}) => {
         const value = row.getValue("validFrom")
-        return formatDate(value)
+        return formatDateToISTWords(value)
     }
   },
   {
@@ -91,7 +91,7 @@ export const columns = [
     header: "Valid Till",
     cell: ({row}) => {
         const value = row.getValue("validTill")
-        return formatDate(value)
+        return formatDateToISTWords(value)
     }
   },
   {

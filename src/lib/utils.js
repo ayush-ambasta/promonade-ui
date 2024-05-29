@@ -14,7 +14,7 @@ export function convertToSnakeCase(str) {
   return str.split(' ').map(word => word.toUpperCase()).join('_');
 }
 
-export function formatDate(dateTimeString) {
+export function formatDateToISTWords(dateTimeString) {
   // Parse the input date string
   const date = new Date(dateTimeString);
 
@@ -42,6 +42,16 @@ export function convertToIndianTime(timestamp) {
   const indianTime = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   const formattedIndianTime = indianTime.toISOString().split("T")[0] + "T" + indianTime.toTimeString().split(" ")[0];
   return formattedIndianTime;
+}
+
+
+export function convertToIndianDateObject(timestamp) {
+  let indianTimestamp = convertToIndianTime(timestamp)
+  
+  const formattedTimestamp = indianTimestamp.split("T")[0] +"T00:00:00"
+  console.log(formattedTimestamp)
+  const date = new Date(formattedTimestamp);
+  return date
 }
 
 export function isValidDateString(dateString) {

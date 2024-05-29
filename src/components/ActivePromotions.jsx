@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { convertToTitleCase, formatDate } from '@/lib/utils';
+import { convertToTitleCase, formatDateToISTWords } from '@/lib/utils';
 import { getApprovedPromotions } from '@/services/promotionsService';
 import UserContext from '@/contexts/UserContext';
 import { Frown
@@ -51,7 +51,7 @@ export const ActivePromotions = () => {
                   <h4 className='text-sm font-medium'>{promo?.name}</h4>
                   <div >
                     <h6 className='text-xs font-normal'>{convertToTitleCase(promo?.category)}</h6>
-                    <h6 className='text-xs font-normal '>Ends on {formatDate(promo?.validTill)}</h6>
+                    <h6 className='text-xs font-normal '>Ends on {formatDateToISTWords(promo?.validTill)}</h6>
                   </div>
                 </div>
               </div>

@@ -19,7 +19,7 @@ import { Label } from "./ui/label";
 import { MoreHorizontal } from "lucide-react"
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
-import { convertToTitleCase, formatDate, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
+import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { createPromotion } from "@/services/promotionsService";
 
 

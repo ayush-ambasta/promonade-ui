@@ -11,8 +11,9 @@ function Analytics(){
         <PreviousPromotions/>
       </div>
 
-      <div className='w-7/12'>
+      <div className='w-7/12 flex-col flex gap-8'>
         <PromotionAnalysis/>
+          <hr className='w-[120%]'/>
         <BusinessAnalysis/>
       </div>
       

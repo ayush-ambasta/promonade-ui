@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { PromotionCategoryIcon } from "./PromoCategoryIcon";
-import { convertToTitleCase, formatDate } from "@/lib/utils";
+import { convertToTitleCase, formatDateToISTWords } from "@/lib/utils";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
 LineChart, Line
 } from 'recharts';
 import { Coins, Wallet, Banknote, PersonStanding, Gem, LampDesk, BriefcaseBusiness
 } from "lucide-react"
+import { DatePickerWithRange } from "./DateRangePicker";
+import { addDays, format } from "date-fns"
+import { Button } from "./ui/button";
 
 const BusinessAnalysis = () => {
     const revenueData = {
@@ -24,11 +26,15 @@ const BusinessAnalysis = () => {
     const [businessRevenueData, setBusinessRevenueData] = useState([])
     const [businessPurchaseData, setBusinessPurchaseData] = useState([])
     const [businessLoginData, setBusinessLoginData] = useState([])
+    const [date, setDate] = useState({
+        from: new Date(2024, 4, 20),
+        to: addDays(new Date(2024, 5, 5), 30),
+      })
 
     function reformatRevenueData(data){
         let newData = []
         for(var i=0; i<revenueData.dates.length; i++){
-            const formattedDate = formatDate(data.dates[i]).split(',')[0]
+            const formattedDate = formatDateToISTWords(data.dates[i]).split(',')[0]
             const split_date = formattedDate.split(' ')
             let temp = {
                 date: split_date.pop() + " " + split_date.pop(),
@@ -42,7 +48,7 @@ const BusinessAnalysis = () => {
     function reformatPurchaseData(data){
         let newData = []
         for(var i=0; i<revenueData.dates.length; i++){
-            const formattedDate = formatDate(data.dates[i]).split(',')[0]
+            const formattedDate = formatDateToISTWords(data.dates[i]).split(',')[0]
             const split_date = formattedDate.split(' ')
             let temp = {
                 date: split_date.pop() + " " + split_date.pop(),
@@ -56,7 +62,7 @@ const BusinessAnalysis = () => {
     function reformatLoginData(data){
         let newData = []
         for(var i=0; i<revenueData.dates.length; i++){
-            const formattedDate = formatDate(data.dates[i]).split(',')[0]
+            const formattedDate = formatDateToISTWords(data.dates[i]).split(',')[0]
             const split_date = formattedDate.split(' ')
             let temp = {
                 date: split_date.pop() + " " + split_date.pop(),
@@ -65,6 +71,10 @@ const BusinessAnalysis = () => {
             newData.push(temp)
         }
         setBusinessLoginData(newData)
+    }
+
+    function performAnalysis(){
+        console.log()
     }
 
     useEffect(()=>{
@@ -76,12 +86,17 @@ const BusinessAnalysis = () => {
 
     return (
         <div className="w-[125%]">
-            <div className="flex items-center my-4">
+            <div className="flex items-center my-4 mt-0">
                 <h1  className=" p-3 font-normal text-sm text-slate-500"> Your Analytics For:  &nbsp;&nbsp;&nbsp; <span className="text-2xl text-slate-700 font-normal">Your  Business </span></h1>
                 <BriefcaseBusiness size={35}/>
             </div>
+            <div className="p-4 bg-white rounded-lg w-fit mx-auto flex items-center gap-5">
+                <h4 className="text-sm text-slate-600">Analysis Period</h4>
+                <DatePickerWithRange date={date} setDate={setDate} />
+                <Button className="h-8" onClick={performAnalysis}>Analyse</Button>
+            </div>
             <div>
-            <div className="flex gap-6">
+                <div className="flex gap-6">
                     <div id="line-graph-logins-vs-time" className="bg-white rounded-2xl p-6 w-fit my-5">
                         <div className="p-4 pt-0">
                             <h3 className="text-slate-500 font-normal text-lg">Logins Vs Time Analytics</h3>
@@ -158,7 +173,6 @@ const BusinessAnalysis = () => {
                         </LineChart>
                     </div>
                 </div>
-                
             </div>
         </div>
     )

@@ -18,7 +18,7 @@ import {
 import { Label } from "@radix-ui/react-dropdown-menu"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-import { convertToTitleCase, formatDate, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
+import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { MoreHorizontal } from "lucide-react"
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
