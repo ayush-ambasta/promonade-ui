@@ -54,7 +54,7 @@ const Analysis = () => {
                 <PromotionCategoryIcon category={Promotion.category} size={35}/>
             </div>
             <div className="flex-col mt-5">
-                <div className="flex justify-around">
+                <div className="flex justify-around gap-3">
                     <div id="revenue-conversion-rate" className="flex bg-white rounded-2xl items-center gap-5 p-5 justify-around">
                         <div className="rounded-full bg-yellow-100 p-2">
                             <Coins/>

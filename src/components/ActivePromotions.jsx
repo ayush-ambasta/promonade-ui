@@ -48,7 +48,7 @@ export const ActivePromotions = () => {
               >
                 <PromotionCategoryIcon category={promo.category} size={35} className="h-4 w-4 mx-2" />
                 <div>
-                  <h4 className='font-medium'>{promo?.name}</h4>
+                  <h4 className='text-sm font-medium'>{promo?.name}</h4>
                   <div >
                     <h6 className='text-xs font-normal'>{convertToTitleCase(promo?.category)}</h6>
                     <h6 className='text-xs font-normal '>Ends on {formatDate(promo?.validTill)}</h6>
