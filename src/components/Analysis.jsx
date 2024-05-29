@@ -86,7 +86,7 @@ const Analysis = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center justify-around ">
+                <div className="flex items-center justify-around gap-4">
                     
                     <div id="bar-graph-revenue-vs-time" className="bg-white rounded-2xl p-6 w-fit my-5">
                         <div className="p-4 pt-0">

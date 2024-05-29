@@ -88,10 +88,10 @@ export const PreviousPromotions = () => {
 
 
   return (
-    <div className="grid auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen shadow-lg lg:min-w-60">
+    <div className="grid lg:h-full auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen shadow-lg lg:min-w-60">
       <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
         <CardHeader>
-          <CardTitle className="font-normal text-xl py- text-slate-600">Promotions</CardTitle>
+          <CardTitle className="font-normal text-xl text-slate-600">Promotions</CardTitle>
         </CardHeader>
 
         {/* Search Button */}
@@ -148,7 +148,7 @@ export const PreviousPromotions = () => {
 
         
         {/* Promotions  */}
-        <CardContent className="px-2 mt-4">
+        <CardContent className="px-2 pr-0 mt-4">
         {promotions.length === 0 ? 
 
         (<h4 className='text-sm text-slate-400'>
@@ -160,7 +160,7 @@ export const PreviousPromotions = () => {
 
         (<>
           <div className="flex-1">
-            <nav className="grid items-start pl-4 font-medium lg:pr-4 ">
+            <nav className="grid items-start pl-4 font-medium pr-0 ">
             <ToggleGroup className="flex-col items-start" type="single">
 
               {promotions?.map((promo) => (
@@ -170,7 +170,7 @@ export const PreviousPromotions = () => {
               >
                 <PromotionCategoryIcon category={promo.category} size={25} className="h-4 w-4 mx-2" />
                 <div>
-                  <h4>{promo?.name}</h4>
+                  <h4 className='text-sm'>{promo?.name}</h4>
                   <h6 className='text-xs font-normal'>{convertToTitleCase(promo?.category)}</h6>
                 </div>
               </div>

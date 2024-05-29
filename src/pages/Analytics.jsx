@@ -5,7 +5,7 @@ import Analysis from '@/components/Analysis';
 
 function Analytics(){
   return (
-    <div className='flex justify-between bg-zinc-100'>
+    <div className='flex justify-between bg-zinc-100 gap-4'>
       <div>
         <PreviousPromotions/>
       </div>

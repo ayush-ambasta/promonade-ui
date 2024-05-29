@@ -46,7 +46,7 @@ export function DataTable({ columns, data }) {
   })
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-xl border">
       <Table>
         <TableHeader className="bg-zinc-50">
           {table.getHeaderGroups().map((headerGroup) => (
