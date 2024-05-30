@@ -35,7 +35,6 @@ const getPromotion=async() => {
     data = data.filter(promo=> promo.createdBy.username===user.username)
   }
   setPromotions(data);
-  setPromotions([]);
   }
 
   useEffect(() => {
