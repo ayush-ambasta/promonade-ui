@@ -8,8 +8,10 @@ import { Coins, Wallet, Banknote, PersonStanding, Gem, LampDesk, BriefcaseBusine
 import { DatePickerWithRange } from "./DateRangePicker";
 import { addDays, format } from "date-fns"
 import { Button } from "./ui/button";
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from "react-responsive";
+
 const BusinessAnalysis = () => {
+    
     const isSmallScreen = useMediaQuery({ maxWidth: 767 });
     const isLargeScreen = useMediaQuery({ minWidth: 768 });
     const revenueData = {
