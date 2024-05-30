@@ -86,7 +86,7 @@ export const PreviousPromotions = () => {
 
 
   return (
-    <div className="grid lg:h-full auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen shadow-lg lg:min-w-60">
+    <div className="grid h-auto auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen shadow-lg lg:min-w-60">
       <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
         <CardHeader>
           <CardTitle className="font-normal text-xl text-slate-600">Promotions</CardTitle>
@@ -157,7 +157,7 @@ export const PreviousPromotions = () => {
         </h4>) :
 
         (<>
-          <div className="flex-1">
+          <div className="flex-1 overflow-y-auto max-h-80">
             <nav className="grid items-start pl-4 font-medium pr-3 ">
             <ToggleGroup className="flex-col items-start" type="single">
 
