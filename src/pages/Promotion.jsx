@@ -16,12 +16,12 @@ function Promotion(){
   
   return (
     <PromotionsProvider>
-      <div className='lg:flex flex-row'>
+      <div className='flex flex-col lg:flex-row'>
         <div>
           <PromotionCategories defaultPromo={defaultPromo} setDefaultPromo={setDefaultPromo}/>
         </div>
 
-        <div className='w-3/4'>
+        <div className='w-full lg:w-3/4'>
           <PromotionList defaultPromo={defaultPromo}/>
 
         </div>

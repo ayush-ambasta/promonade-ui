@@ -98,7 +98,7 @@ const PromotionAnalysis = () => {
                 <PromotionCategoryIcon category={Promotion.category} size={35}/>
             </div>
 
-            <div className="p-4 bg-white rounded-lg w-fit mx-auto flex items-center gap-5">
+            <div className="p-4 bg-white rounded-lg w-full lg:w-fit mx-auto flex flex-col lg:flex-row items-center gap-5">
                 <Sheet >
                     <h4 className="text-sm text-slate-600">Analysis Period</h4>
                     <DatePickerWithRange date={date} setDate={setDate} />
@@ -109,8 +109,8 @@ const PromotionAnalysis = () => {
             </div>
 
             <div className="flex-col mt-5">
-                <div className="flex justify-around gap-3">
-                    <div id="revenue-conversion-rate" className="flex bg-white rounded-2xl items-center gap-5 p-5 justify-around">
+                <div className="flex flex-col lg:flex-row justify-around gap-3">
+                    <div id="revenue-conversion-rate" className="flex  bg-white rounded-2xl items-center gap-5 p-5 justify-around">
                         <div className="rounded-full bg-yellow-100 p-2">
                             <Coins/>
                         </div>
@@ -141,7 +141,7 @@ const PromotionAnalysis = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center justify-around gap-4">
+                <div className="flex flex-col lg:flex-row items-center justify-around gap-4">
                     
                     <div id="bar-graph-revenue-vs-time-promotion" className="bg-white rounded-2xl p-6 w-fit my-5">
                         <div className="p-4 pt-0">
@@ -168,7 +168,7 @@ const PromotionAnalysis = () => {
                             <Bar dataKey="revenue" fill="#8884d8" />
                         </BarChart>
                     </div>
-                    <div className="flex-col justify-around w-1/3" id="customer segments">
+                    <div className="flex-col justify-around lg:w-1/3 w-full" id="customer segments">
                         <div id="age-cat" className="flex bg-white my-3 rounded-2xl items-center gap-5 p-5 ">
                             <div className="rounded-full bg-yellow-100 p-2">
                                 <LampDesk/>
