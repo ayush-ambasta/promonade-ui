@@ -27,8 +27,8 @@ export const ActivePromotions = () => {
 
 
   return (
-    <div className="grid auto-rows-max items-start  mt-6  gap-4 rounded-3xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 lg:min-w-full">
-      <Card x-chunk="dashboard-07-chunk-3" className=" relative shadow-none border-none bg-inherit">
+    <div className="grid auto-rows-max items-start  mt-6  gap-4 rounded-2xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 lg:min-w-full">
+      <Card x-chunk="dashboard-07-chunk-3" className="rounded-2xl relative shadow-none border-none bg-inherit">
         <CardHeader >
           <CardTitle className="font-medium text-center text-xl text-red-700">Active Promotions</CardTitle>
         </CardHeader>
@@ -44,7 +44,7 @@ export const ActivePromotions = () => {
         
             {promotions?.map((promo) => (
               <div key={promo?.id}
-                className="flex cursor-pointer items-center gap-3 rounded-lg py-2 text-muted-foreground transition-all hover:text-primary"
+                className="flex cursor-pointer items-center gap-3  py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <PromotionCategoryIcon category={promo.category} size={35} className="h-4 w-4 mx-2" />
                 <div>

@@ -86,7 +86,7 @@ export const PreviousPromotions = () => {
 
 
   return (
-    <div className="grid h-auto auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen shadow-lg lg:min-w-60">
+    <div className="grid h-fit lg:h-full auto-rows-max items-start gap-4 bg-white lg:gap-8 lg:min-h-screen shadow-lg lg:min-w-60">
       <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
         <CardHeader>
           <CardTitle className="font-normal text-xl text-slate-600">Promotions</CardTitle>
@@ -159,10 +159,10 @@ export const PreviousPromotions = () => {
         (<>
           <div className="flex-1 overflow-y-auto max-h-80">
             <nav className="grid items-start pl-4 font-medium pr-3 ">
-            <ToggleGroup className="flex-col items-start" type="single">
+            <ToggleGroup className="flex-col items-start justify-start" type="single">
 
               {promotions?.map((promo) => (
-              <ToggleGroupItem value={promo.id} key={promo.id} className=" text-left px-0 pr-1 py-8">
+              <ToggleGroupItem value={promo.id} key={promo.id} className="w-full flex justify-start text-left px-0 pr-1 py-8">
                
               <Link to={"/analytics?id=" + promo.id}
                 className="flex cursor-pointer justify-between items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
