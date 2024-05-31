@@ -5,7 +5,6 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
 
-
 export function convertToTitleCase(str) {
   return str.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
@@ -14,11 +13,9 @@ export function convertToSnakeCase(str) {
   return str.split(' ').map(word => word.toUpperCase()).join('_');
 }
 
+//Output in words
 export function formatDateToISTWords(dateTimeString) {
-  // Parse the input date string
   const date = new Date(dateTimeString);
-
-  // Define options for formatting the date
   const options = {
       weekday: 'long',
       year: 'numeric',
@@ -26,14 +23,13 @@ export function formatDateToISTWords(dateTimeString) {
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
-      timeZone: 'Asia/Kolkata' // Set timezone to Indian Standard Time (IST)
+      timeZone: 'Asia/Kolkata' 
   };
-
-  // Format the date using Intl.DateTimeFormat
   const formatter = new Intl.DateTimeFormat('en-IN', options);
   return formatter.format(date);
 };
 
+//output as a date-time string 
 export function convertToIndianTime(timestamp) {
   if(timestamp.endsWith("+05:30")){
     return timestamp.replace("+05:30", "")
@@ -44,7 +40,7 @@ export function convertToIndianTime(timestamp) {
   return formattedIndianTime;
 }
 
-
+//output as a date object
 export function convertToIndianDateObject(timestamp) {
   let indianTimestamp = convertToIndianTime(timestamp)
   
@@ -52,6 +48,17 @@ export function convertToIndianDateObject(timestamp) {
   console.log(formattedTimestamp)
   const date = new Date(formattedTimestamp);
   return date
+}
+
+//retuns as date string only, no conversions involved
+export function getDateString(date){
+  let year = date.getFullYear();
+  let month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1 and pad with zero if necessary
+  let day = String(date.getDate()).padStart(2, '0');
+
+  let formattedDate = `${year}-${month}-${day}`;
+
+  return formattedDate
 }
 
 export function isValidDateString(dateString) {

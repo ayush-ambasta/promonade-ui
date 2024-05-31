@@ -32,7 +32,7 @@ import {
 import { Link } from 'react-router-dom';
 
 
-export const PreviousPromotions = () => {
+export const PreviousPromotions = ({Promotion}) => {
     
     const [searchInput, setSearchInput] = useState("");
     const [promotionCategory, setPromotionCategory] = useState("")
@@ -157,9 +157,9 @@ export const PreviousPromotions = () => {
         </h4>) :
 
         (<>
-          <div className="flex-1 overflow-y-auto max-h-80">
+          <div className="flex-1 overflow-y-auto lg:overflow-y-clip lg:max-h-none max-h-80">
             <nav className="grid items-start pl-4 font-medium pr-3 ">
-            <ToggleGroup className="flex-col items-start justify-start" type="single">
+            <ToggleGroup className="flex-col items-start justify-start" value={Promotion.id} type="single">
 
               {promotions?.map((promo) => (
               <ToggleGroupItem value={promo.id} key={promo.id} className="w-full flex justify-start text-left px-0 pr-1 py-8">

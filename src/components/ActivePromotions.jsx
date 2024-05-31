@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card"
 import { convertToTitleCase, formatDateToISTWords } from '@/lib/utils';
 import { getApprovedPromotions } from '@/services/promotionsService';
-import UserContext from '@/contexts/UserContext';
 import { Frown
 } from "lucide-react"
 import { PromotionCategoryIcon } from './PromoCategoryIcon';
@@ -27,7 +26,7 @@ export const ActivePromotions = () => {
 
 
   return (
-    <div className="grid auto-rows-max items-start  mt-6  gap-4 rounded-2xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 lg:min-w-full">
+    <div className="grid auto-rows-max items-start lg:w-1/4 mt-6  gap-4 rounded-2xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 ">
       <Card x-chunk="dashboard-07-chunk-3" className="rounded-2xl relative shadow-none border-none bg-inherit">
         <CardHeader >
           <CardTitle className="font-medium text-center text-xl text-red-700">Active Promotions</CardTitle>
