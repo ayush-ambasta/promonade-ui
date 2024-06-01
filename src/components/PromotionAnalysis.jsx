@@ -95,12 +95,8 @@ const PromotionAnalysis = ({Promotion}) => {
     return (
         <div className="mt-5 min-h-screen">
             
-            {Promotion=={} && (
-                <div className="flex justify-center w-full h-screen items-center">
-                    No Promotions found ...
-                </div>
-            )}
-            {Promotion && ( <>
+            
+            {Promotion!={} && ( <>
             <div className="flex items-center mb-4">
                 <h1  className=" p-3 font-normal text-sm text-slate-500"> Your Analytics For Promotion: <span className="lg:text-2xl lg:ml-5 text-md text-slate-700 font-normal">{Promotion.name} </span></h1>
                 <PromotionCategoryIcon category={Promotion.category} size={35}/>
