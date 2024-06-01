@@ -32,7 +32,6 @@ function Analytics(){
       const data = await getApprovedPromotions();
       setLoading(false)
       if(data.length===0){
-        setPromotion({});
         return
       }
       const promotion = data.filter(checkVaildTill)[0]
@@ -59,6 +58,11 @@ function Analytics(){
                 </div>
             )}
         {Promotion &&<PreviousPromotions Promotion={Promotion}/>}
+        {!Promotion && (
+                <div className="flex justify-center w-full h-screen items-center">
+                    No Promotions found ...
+                </div>
+            )}
       </div>
 
       <div className='w-full flex-col flex gap-8'>
@@ -69,6 +73,11 @@ function Analytics(){
                 </div>
             )}
           {Promotion && <PromotionAnalysis Promotion={Promotion}/>}
+          {!Promotion && (
+                <div className="flex justify-center w-full h-screen items-center">
+                    No Promotions found ...
+                </div>
+            )}
           <ActivePromotions />
         </div>
         <hr className='w-full '/>
