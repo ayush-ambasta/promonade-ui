@@ -4,7 +4,7 @@ import { convertToTitleCase } from "@/lib/utils";
 import {
     Search,
   } from "lucide-react"
-import { getAllPromotions } from "@/services/promotionsService";
+import { deactivatePromotion, getAllPromotions } from "@/services/promotionsService";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import PromotionsContext from "@/contexts/PromotionsContext";
@@ -32,6 +32,14 @@ const PromotionList = ({defaultPromo}) =>{
             ...item,
             _id: index + 1 // Incrementing id values
         }));
+        for(let i=0; i<newData.length;i++){
+            if(new Date(newData[i].validTill) < Date.now() && newData[i].active){
+                const resp = await deactivatePromotion(newData[i].id)
+                if(!resp.success)
+                    break
+                newData[i].active = false
+            }
+        }
         return newData
     }
 

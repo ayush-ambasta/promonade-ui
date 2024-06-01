@@ -41,7 +41,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
       };
 
      return (
-        <SheetContent side="left" className="lg:max-w-lg">
+        <SheetContent side="left" className="lg:max-w-lg lg:overflow-y-scroll">
             <SheetHeader>
                 <SheetTitle>Audit Promotion</SheetTitle>
                 <div>

@@ -1,12 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from ".";
 
-
-export const getApprovedPromotions = async ()=>{
+export const getRevenueConversionRateOfPromotion = async (startDate, endDate, promotionId)=>{
     const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     try{
-        const response = await axios(`${BASE_URL}/api/promotions/get-approved`,
+        const response = await axios(`${BASE_URL}/api/analytics/revenue-conversion-rate-with-promotion?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
             {
                 method: 'GET',
                 headers: { 
@@ -28,35 +27,11 @@ export const getApprovedPromotions = async ()=>{
     }
 }
 
-export const getAllPromotions = async() => {
+export const getPurchaseConversionRateOfPromotion = async (startDate, endDate, promotionId)=>{
     const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     try{
-        const response = await axios(`${BASE_URL}/api/promotions`,
-            {
-                method: 'GET',
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-            }
-        )
-        if(response.status==200){
-            return response.data;
-        }else{
-            throw new Error("Error");
-        }
-    }
-    catch(e){
-        alert('Error: ' + e.response.data.message);
-    }
-}
-
-export const getNotApprovedPromotions = async ()=>{
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    try{
-        const response = await axios(`${BASE_URL}/api/promotions/get-non-approved-user-team`,
+        const response = await axios(`${BASE_URL}/api/analytics/promotion-purchase-conversion-rate?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
             {
                 method: 'GET',
                 headers: { 
@@ -78,146 +53,11 @@ export const getNotApprovedPromotions = async ()=>{
     }
 }
 
-export const approvePromotion = async (id)=>{
+export const getPurchaseShareConversionRateOfPromotion = async (startDate, endDate, promotionId)=>{
     const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     try{
-        const response = await axios(`${BASE_URL}/api/promotions/approve-promotion?id=${id}`,
-            {
-                method: 'POST',
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                
-            }
-        );
-        
-        if(response.status==200){
-            return response.data;
-        }else{
-            throw new Error("Error");
-        }
-        
-    }catch(e){
-        alert('Error: ' + e.response.data.message);
-    }
-}
-
-export const disapprovePromotion = async (id)=>{
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    try{
-        const response = await axios(`${BASE_URL}/api/promotions/disapprove-promotion?id=${id}`,
-            {
-                method: 'POST',
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                
-            }
-        );
-        
-        if(response.status==200){
-            return response.data;
-        }else{
-            throw new Error("Error");
-        }
-        
-    }catch(e){
-        alert('Error: ' + e.response.data.message);
-    }
-}
-
-
-export const deletePromotion = async (id)=>{
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    try{
-        const response = await axios(`${BASE_URL}/api/promotions/delete/${id}`,
-            {
-                method: 'DELETE',
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                
-            }
-        );
-        
-        if(response.status==200){
-            return response.data;
-        }else{
-            throw new Error("Error");
-        }
-        
-    }catch(e){
-        alert('Error: ' + e.response.data.message);
-    }
-}
-
-
-export const editPromotion = async (id, promotionChanges)=>{
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    try{
-        const response = await axios(`${BASE_URL}/api/promotions/${id}`,
-            {
-                method: 'PATCH',
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                data: JSON.stringify(promotionChanges)
-                
-            }
-        );
-        
-        if(response.status==200){
-            return response.data;
-        }else{
-            throw new Error("Error");
-        }
-        
-    }catch(e){
-        alert('Error: ' + e.response.data.message);
-    }
-}
-
-
-export const createPromotion = async (promotion)=>{
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    try{
-        const response = await axios(`${BASE_URL}/api/promotions/create`,
-            {
-                method: 'POST',
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                data: JSON.stringify(promotion)
-                
-            }
-        );
-        
-        if(response.status==200){
-            return response.data;
-        }else{
-            throw new Error("Error");
-        }
-        
-    }catch(e){
-        alert('Error: ' + e.response.data.message);
-    }
-}
-
-export const getPromotionById = async (id)=>{
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    try{
-        const response = await axios(`${BASE_URL}/api/promotions/${id}`,
+        const response = await axios(`${BASE_URL}/api/analytics/promotion-conversion-rate?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
             {
                 method: 'GET',
                 headers: { 
@@ -239,18 +79,245 @@ export const getPromotionById = async (id)=>{
     }
 }
 
-export const deactivatePromotion = async (id)=>{
+export const getAgeCriteriaSuccessRateOfPromotion = async (startDate, endDate, promotionId)=>{
     const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     try{
-        const response = await axios(`${BASE_URL}/api/promotions/deactivate?id=${id}`,
+        const response = await axios(`${BASE_URL}/api/analytics/age-criteria-success-rate?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
             {
-                method: 'POST',
+                method: 'GET',
                 headers: { 
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getGenderCriteriaSuccessRateOfPromotion = async (startDate, endDate, promotionId)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/gender-criteria-success-rate?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getMaritalStatusCriteriaSuccessRateOfPromotion = async (startDate, endDate, promotionId)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/maritalstatus-criteria-success-rate?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getRevenueVsDateForPromotion = async (startDate, endDate, promotionId)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/promotion-revenue-by-date?start=${startDate}&end=${endDate}&promotionId=${promotionId}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getLoginsVsDate = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/login-frequency?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getRevenueVsDate = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/revenue-by-date?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getPurchasesVsDate = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/purchases-by-date?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getOverallPromotionConversionRate = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/overall-promotion-conversion-rate?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getPurchaseConversionRate = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/purchase-conversion-rate?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }else{
+            throw new Error("Error");
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}
+
+export const getPromotionTrendsPieChart = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/promotion-pie-chart?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             }
         );
         
