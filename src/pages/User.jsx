@@ -7,8 +7,8 @@ import React from 'react'
 function User(){
   return (
     <>
-    <main className="bg-zinc-100 relative h-[120vh]">
-      <div className='flex flex-col relative top-5 lg:flex-row items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8  lg:justify-between '>
+    <main className="bg-zinc-100 relative h-full lg:h-[120vh]">
+      <div className='flex flex-col relative lg:top-5 lg:flex-row items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8  lg:justify-between '>
         <div className="rounded-lg flex flex-col gap-4 pb-4 lg:gap-8 w-full lg:w-1/4 order-2 lg:order-1 bg-white">
           <Team/>
         </div>
