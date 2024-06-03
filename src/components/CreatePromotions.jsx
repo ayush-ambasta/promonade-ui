@@ -21,14 +21,10 @@ import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { createPromotion } from "@/services/promotionsService";
-import UserContext from "@/contexts/UserContext";
-import { useNavigate } from "react-router-dom";
 
 
 const CreatePromotion = ({defaultPromo}) => {
     const { promotions, dispatch } = useContext(PromotionsContext);
-    const userAction = useContext(UserContext).dispatch;
-    const navigate = useNavigate();
     const [name, setName] = useState("")
     const [type, setType] = useState("")
     const [validFromTime, setValidFromTime] = useState("")
@@ -67,11 +63,7 @@ const CreatePromotion = ({defaultPromo}) => {
             })
             dispatch({type:'CREATE',payload:{...promotion, _id: promotions.length+1}})
         }catch(err){
-            if(err.message==="SESSION_EXPIRED"){
-                alert("session expired login again");
-                userAction({type:'LOGOUT'});
-                navigate('/login');
-              }
+            console.log(err)
         }
         
     }

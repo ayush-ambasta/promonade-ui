@@ -19,12 +19,10 @@ import { MoreHorizontal } from "lucide-react"
 import { approvePromotion, disapprovePromotion } from "@/services/promotionsService"
 import UserContext from "@/contexts/UserContext"
 import { useContext } from "react"
-import { useNavigate } from "react-router-dom"
 
 const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
-    const { state ,dispatch} = useContext(UserContext);
+    const { state } = useContext(UserContext);
     const user = state.user;
-    const navigate = useNavigate();
     
     const handleButtonClick = async (action) => {
         try{
@@ -37,13 +35,8 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
           }
           setPromotions(promotions.filter(promo => promo?.id !== promotion?.id));
         }catch(err){
-            if(err.message==="SESSION_EXPIRED"){
-                alert("session expired login again");
-                dispatch({type:'LOGOUT'});
-                navigate('/login');
-              }
+            console.log(err)
         }
-        
       };
 
      return (
@@ -86,14 +79,14 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                             </Select>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="validFrom" className="text-black text-xs font-normal">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
+                            <Label htmlFor="validFrom" className="text-black text-left text-xs font-normal">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
                             <div className="w-2/5 flex">
                             <Input className="text-xs py-2 mr-2" defaultValue={convertToIndianTime(promotion.validFrom).split("T")[0] } disabled/>
                             <Input className="text-xs py-2" defaultValue={convertToIndianTime(promotion.validFrom).split("T")[1]} disabled/>
                             </div>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="validTill" className="text-black text-xs font-normal">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
+                            <Label htmlFor="validTill" className="text-black text-left text-xs font-normal">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
                             <div className="w-2/5 flex">
                             <Input className="text-xs py-2 mr-2" defaultValue={convertToIndianTime(promotion.validTill).split("T")[0]} disabled/>
                             <Input className="text-xs py-2" defaultValue={convertToIndianTime(promotion.validTill).split("T")[1]} disabled/>

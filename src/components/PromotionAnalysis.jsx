@@ -20,14 +20,11 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { getAgeCriteriaSuccessRateOfPromotion, getGenderCriteriaSuccessRateOfPromotion, getMaritalStatusCriteriaSuccessRateOfPromotion, getPurchaseConversionRate, getPurchaseConversionRateOfPromotion, getPurchaseShareConversionRateOfPromotion, getRevenueConversionRateOfPromotion, getRevenueVsDateForPromotion } from "@/services/analyticsService";
-import UserContext from "@/contexts/UserContext";
-import { useNavigate } from "react-router-dom";
 
 const PromotionAnalysis = ({Promotion}) => {
     const isSmallScreen = useMediaQuery({ maxWidth: 767 });
     const isLargeScreen = useMediaQuery({ minWidth: 768 });
-    const {dispatch} = useContext(UserContext);
-    const navigate = useNavigate();
+
     const [promotionRevenueData, setPromotionRevenueData] = useState([])
     const [revenueConversionRate, setRevenueConversionRate] = useState(0);
     const [purchaseConversionRate, setPurchaseConversionRate] = useState(0);
@@ -90,13 +87,8 @@ const PromotionAnalysis = ({Promotion}) => {
                     return
             }
         }catch(err){
-            if(err.message==="SESSION_EXPIRED"){
-                alert("session expired login again");
-                dispatch({type:'LOGOUT'});
-                navigate('/login');
-              }
+            console.log(err)
         }
-        
     }
 
     useEffect(()=>{

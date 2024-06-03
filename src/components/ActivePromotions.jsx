@@ -10,28 +10,21 @@ import { getApprovedPromotions } from '@/services/promotionsService';
 import { Frown
 } from "lucide-react"
 import { PromotionCategoryIcon } from './PromoCategoryIcon';
-import UserContext from '@/contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export const ActivePromotions = () => {
     const [promotions, setpromotions] = useState([]);
-    const {dispatch} = useContext(UserContext);
-    const navigate = useNavigate();
     useEffect(() => {
-        const getPromotion=async() => {
-        try{
-          const data = await getApprovedPromotions();
-          setpromotions(data.filter(promo=>promo.active));
-        }catch(err){
-          if(err.message==="SESSION_EXPIRED"){
-            alert("session expired login again");
-            dispatch({type:'LOGOUT'});
-            navigate('/login');
-          }
+      const getPromotion=async() => {
+      try{
+        const data = await getApprovedPromotions();
+        setpromotions(data.filter(promo=>promo.active));
+      }catch(err){
+        console.log(err)
         }
       }
-      
+
       getPromotion();
     }, [])
 
@@ -56,6 +49,9 @@ export const ActivePromotions = () => {
               <div key={promo?.id}
                 className="flex cursor-pointer items-center gap-3  py-2 text-muted-foreground transition-all hover:text-primary"
               >
+                <Link to={"/analytics?id=" + promo.id}
+                className="flex cursor-pointer justify-between items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                >
                 <PromotionCategoryIcon category={promo.category} size={35} className="h-4 w-4 mx-2" />
                 <div>
                   <h4 className='text-sm font-medium'>{promo?.name}</h4>
@@ -64,6 +60,7 @@ export const ActivePromotions = () => {
                     <h6 className='text-xs font-normal '>Ends on {formatDateToISTWords(promo?.validTill)}</h6>
                   </div>
                 </div>
+                </Link>
               </div>
             ))}
         </div>
