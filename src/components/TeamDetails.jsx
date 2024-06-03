@@ -39,15 +39,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useNavigate } from 'react-router-dom';
 
 const teams = ["MILESTONE_PROMO_TEAM", "REFERRAL_PROMO_TEAM", "HIGHPURCHASE_PROMO_TEAM", "LOYALTY_PROMO_TEAM", "FLASHSALE_PROMO_TEAM", "SEASONAL_PROMO_TEAM"];
 const roles = ["MANAGER", "OWNER"]
 
 export const TeamDetails = () => {
   const {state,teamName} = useContext(UserContext);
-  const {dispatch} = useContext(UserContext);
-  const navigate = useNavigate();  
+
   const user = state?.user;
   const [team, setTeam] = useState();
   const defaultTeamName = user?.team;
@@ -64,11 +62,7 @@ export const TeamDetails = () => {
       setTeam(response);
       setloading(false);
     }catch(err){
-      if(err.message==="SESSION_EXPIRED"){
-        alert("session expired login again");
-        dispatch({type:'LOGOUT'});
-        navigate('/login');
-      }
+      console.log(err)
     }
     
   }

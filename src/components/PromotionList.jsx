@@ -10,14 +10,10 @@ import { DataTable } from "./data-table";
 import PromotionsContext from "@/contexts/PromotionsContext";
 import CreatePromotion from "./CreatePromotions";
 import FilterPromotionList from "./FilterPomotionList";
-import { useNavigate } from "react-router-dom";
-
 
 const PromotionList = ({defaultPromo}) =>{
     
-    const navigate = useNavigate();  
     const { state } = useContext(UserContext);
-    const userAction = useContext(UserContext).dispatch;
     const user = state.user;
     const userTeam = user.team
     
@@ -59,11 +55,7 @@ const PromotionList = ({defaultPromo}) =>{
               const promos = await fetchPromotions();
               dispatch({type:'ADDALL',payload:promos})
           } catch (err) {
-            if(err.message==="SESSION_EXPIRED"){
-                alert("session expired login again");
-                userAction({type:'LOGOUT'});
-                navigate('/login');
-              }
+            console.log(err)
           }
       };
   

@@ -22,9 +22,7 @@ export const getApprovedPromotions = async ()=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -47,9 +45,7 @@ export const getAllPromotions = async() => {
         }
     }
     catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -74,9 +70,7 @@ export const getNotApprovedPromotions = async ()=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -101,9 +95,7 @@ export const approvePromotion = async (id)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -128,9 +120,7 @@ export const disapprovePromotion = async (id)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -156,9 +146,7 @@ export const deletePromotion = async (id)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -185,9 +173,7 @@ export const editPromotion = async (id, promotionChanges)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -214,9 +200,7 @@ export const createPromotion = async (promotion)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -241,9 +225,7 @@ export const getPromotionById = async (id)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -268,9 +250,7 @@ export const deactivatePromotion = async (id)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }

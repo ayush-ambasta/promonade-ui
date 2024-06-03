@@ -21,9 +21,6 @@ export const getRevenueConversionRateOfPromotion = async (startDate, endDate, pr
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -48,9 +45,6 @@ export const getPurchaseConversionRateOfPromotion = async (startDate, endDate, p
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -75,9 +69,6 @@ export const getPurchaseShareConversionRateOfPromotion = async (startDate, endDa
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -102,9 +93,7 @@ export const getAgeCriteriaSuccessRateOfPromotion = async (startDate, endDate, p
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -129,9 +118,7 @@ export const getGenderCriteriaSuccessRateOfPromotion = async (startDate, endDate
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -155,9 +142,7 @@ export const getMaritalStatusCriteriaSuccessRateOfPromotion = async (startDate, 
             return response.data;
         }
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -181,9 +166,7 @@ export const getRevenueVsDateForPromotion = async (startDate, endDate, promotion
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -207,9 +190,7 @@ export const getLoginsVsDate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -233,9 +214,7 @@ export const getRevenueVsDate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -259,9 +238,7 @@ export const getPurchasesVsDate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -285,9 +262,7 @@ export const getOverallPromotionConversionRate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -311,9 +286,7 @@ export const getPurchaseConversionRate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -337,9 +310,7 @@ export const getPromotionTrendsPieChart = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        if(e.response.data.message==="SESSION_EXPIRED"){
-            throw new Error("SESSION_EXPIRED");
-        }
+        
         alert('Error: ' + e.response.data.message);
     }
 }

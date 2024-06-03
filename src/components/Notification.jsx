@@ -20,12 +20,10 @@ import { PromotionCategoryIcon } from './PromoCategoryIcon';
 import { convertToTitleCase } from '@/lib/utils';
 import AuditPromotion from './AuditPromotion';
 import UserContext from '@/contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
 
 export const Notification = () => {
-  const { state,dispatch} = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const user = state.user;
-  const navigate = useNavigate();
   const [promotions, setPromotions] = useState([]);
   const [refresh, setrefresh] = useState(0);
 
@@ -38,11 +36,7 @@ const getPromotion=async() => {
     }
     setPromotions(data);
   }catch(err){
-    if(err.message==="SESSION_EXPIRED"){
-      alert("session expired login again");
-      dispatch({type:'LOGOUT'});
-      navigate('/login');
-    }
+    console.log(err)
   }
   }
 

@@ -29,26 +29,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Link, useNavigate } from 'react-router-dom';
-import UserContext from '@/contexts/UserContext';
+import { Link } from 'react-router-dom';
 
 export const PreviousPromotions = ({Promotion}) => {
-  const {dispatch} = useContext(UserContext);
   
-  const navigate = useNavigate();
-    const [searchInput, setSearchInput] = useState("");
-    const [promotionCategory, setPromotionCategory] = useState("")
-    const [promotionType, setPromotionType] = useState("")
-    const [promotions, setpromotions] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [promotionCategory, setPromotionCategory] = useState("")
+  const [promotionType, setPromotionType] = useState("")
+  const [promotions, setpromotions] = useState([]);
 
     const checkVaildTill = (promo) =>{
-        const validTill = new Date(promo?.validTill);
-        const today = new Date();
-        if(validTill<today){
-            return true;
-        }
-        
-        return false;
+      const validTill = new Date(promo?.validTill);
+      const today = new Date();
+      if(validTill<today){
+          return true;
+      }
+      
+      return false;
     }
 
     const searchPromotions = async () =>{
@@ -57,11 +54,7 @@ export const PreviousPromotions = ({Promotion}) => {
         promos = promos.filter(element => element.name.toLowerCase().includes(searchInput.toLowerCase()));
         setpromotions(promos)
       }catch(err){
-        if(err.message==="SESSION_EXPIRED"){
-          alert("session expired login again");
-          dispatch({type:'LOGOUT'});
-          navigate('/login');
-        }
+        console.log(err)
       }
       
     }
@@ -76,14 +69,8 @@ export const PreviousPromotions = ({Promotion}) => {
         });
         setpromotions(promos);
       }catch(err){
-        if(err.message==="SESSION_EXPIRED"){
-          alert("session expired login again");
-          dispatch({type:'LOGOUT'});
-          navigate('/login');
-        }
+        console.log(err)
       }
-      
-      
     }
 
     const getPromotion=async() => {
@@ -91,29 +78,15 @@ export const PreviousPromotions = ({Promotion}) => {
         const data = await getApprovedPromotions();
         return data.filter(checkVaildTill);
       }catch(err){
-        if(err.message==="SESSION_EXPIRED"){
-          alert("session expired login again");
-          dispatch({type:'LOGOUT'});
-          navigate('/login');
-        }
+        console.log(err)
       }
-      
     }
 
     useEffect(() => {
       const fetchData = async () => {
-        try {
-            const promos = await getPromotion();
-            setpromotions(promos);
-        } catch (err) {
-          if(err.message==="SESSION_EXPIRED"){
-            alert("session expired login again");
-            dispatch({type:'LOGOUT'});
-            navigate('/login');
-          }
-        }
+        const promos = await getPromotion();
+        setpromotions(promos);
     };
-
     fetchData();
     }, []);
 

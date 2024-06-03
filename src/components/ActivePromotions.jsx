@@ -10,28 +10,20 @@ import { getApprovedPromotions } from '@/services/promotionsService';
 import { Frown
 } from "lucide-react"
 import { PromotionCategoryIcon } from './PromoCategoryIcon';
-import UserContext from '@/contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
 
 
 export const ActivePromotions = () => {
     const [promotions, setpromotions] = useState([]);
-    const {dispatch} = useContext(UserContext);
-    const navigate = useNavigate();
     useEffect(() => {
-        const getPromotion=async() => {
-        try{
-          const data = await getApprovedPromotions();
-          setpromotions(data.filter(promo=>promo.active));
-        }catch(err){
-          if(err.message==="SESSION_EXPIRED"){
-            alert("session expired login again");
-            dispatch({type:'LOGOUT'});
-            navigate('/login');
-          }
+      const getPromotion=async() => {
+      try{
+        const data = await getApprovedPromotions();
+        setpromotions(data.filter(promo=>promo.active));
+      }catch(err){
+        console.log(err)
         }
       }
-      
+
       getPromotion();
     }, [])
 
