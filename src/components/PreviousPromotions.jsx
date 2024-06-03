@@ -29,11 +29,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import UserContext from '@/contexts/UserContext';
 
 export const PreviousPromotions = ({Promotion}) => {
-    
+  const {dispatch} = useContext(UserContext);
+  
+  const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState("");
     const [promotionCategory, setPromotionCategory] = useState("")
     const [promotionType, setPromotionType] = useState("")
@@ -50,24 +52,52 @@ export const PreviousPromotions = ({Promotion}) => {
     }
 
     const searchPromotions = async () =>{
-      let promos = await getPromotion();
-      promos = promos.filter(element => element.name.toLowerCase().includes(searchInput.toLowerCase()));
-      setpromotions(promos)
+      try{
+        let promos = await getPromotion();
+        promos = promos.filter(element => element.name.toLowerCase().includes(searchInput.toLowerCase()));
+        setpromotions(promos)
+      }catch(err){
+        if(err.message==="SESSION_EXPIRED"){
+          alert("session expired login again");
+          dispatch({type:'LOGOUT'});
+          navigate('/login');
+        }
+      }
+      
     }
 
     const filterPromotions = async() =>{
-      let promos = await getPromotion();
-      promos = promos.filter(element => {
+      try{
+        let promos = await getPromotion();
+        promos = promos.filter(element => {
           const matchCategory = !promotionCategory || convertToTitleCase(element.category) === promotionCategory;
           const matchType = !promotionType || element.promotionType === promotionType;
           return matchCategory && matchType;
-      });
-      setpromotions(promos);
+        });
+        setpromotions(promos);
+      }catch(err){
+        if(err.message==="SESSION_EXPIRED"){
+          alert("session expired login again");
+          dispatch({type:'LOGOUT'});
+          navigate('/login');
+        }
+      }
+      
+      
     }
 
     const getPromotion=async() => {
-      const data = await getApprovedPromotions();
-      return data.filter(checkVaildTill);
+      try{
+        const data = await getApprovedPromotions();
+        return data.filter(checkVaildTill);
+      }catch(err){
+        if(err.message==="SESSION_EXPIRED"){
+          alert("session expired login again");
+          dispatch({type:'LOGOUT'});
+          navigate('/login');
+        }
+      }
+      
     }
 
     useEffect(() => {
@@ -75,8 +105,12 @@ export const PreviousPromotions = ({Promotion}) => {
         try {
             const promos = await getPromotion();
             setpromotions(promos);
-        } catch (error) {
-            console.error("Error setting promotions:", error);
+        } catch (err) {
+          if(err.message==="SESSION_EXPIRED"){
+            alert("session expired login again");
+            dispatch({type:'LOGOUT'});
+            navigate('/login');
+          }
         }
     };
 

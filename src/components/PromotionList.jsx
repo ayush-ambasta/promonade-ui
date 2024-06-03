@@ -10,14 +10,17 @@ import { DataTable } from "./data-table";
 import PromotionsContext from "@/contexts/PromotionsContext";
 import CreatePromotion from "./CreatePromotions";
 import FilterPromotionList from "./FilterPomotionList";
+import { useNavigate } from "react-router-dom";
 
 
 const PromotionList = ({defaultPromo}) =>{
-
+    
+    const navigate = useNavigate();  
     const { state } = useContext(UserContext);
+    const userAction = useContext(UserContext).dispatch;
     const user = state.user;
     const userTeam = user.team
-
+    
     const [allowedPromo, setAllowedPromo] = useState(userTeam.replace("_PROMO_TEAM", ""))
     const { promotions , dispatch } = useContext(PromotionsContext)
 
@@ -55,8 +58,12 @@ const PromotionList = ({defaultPromo}) =>{
           try {
               const promos = await fetchPromotions();
               dispatch({type:'ADDALL',payload:promos})
-          } catch (error) {
-              console.error("Error setting promotions:", error);
+          } catch (err) {
+            if(err.message==="SESSION_EXPIRED"){
+                alert("session expired login again");
+                userAction({type:'LOGOUT'});
+                navigate('/login');
+              }
           }
       };
   
