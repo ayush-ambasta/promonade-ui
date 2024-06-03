@@ -19,11 +19,13 @@ import { MoreHorizontal } from "lucide-react"
 import { approvePromotion, disapprovePromotion } from "@/services/promotionsService"
 import UserContext from "@/contexts/UserContext"
 import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
-    const { state } = useContext(UserContext);
+    const { state ,dispatch} = useContext(UserContext);
     const user = state.user;
-
+    const navigate = useNavigate();
+    
     const handleButtonClick = async (action) => {
         try{
           if (action === 'accept') {
@@ -34,8 +36,12 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
             alert('Promotion Declined');
           }
           setPromotions(promotions.filter(promo => promo?.id !== promotion?.id));
-        }catch(e){
-          alert("Something went wrong");
+        }catch(err){
+            if(err.message==="SESSION_EXPIRED"){
+                alert("session expired login again");
+                dispatch({type:'LOGOUT'});
+                navigate('/login');
+              }
         }
         
       };

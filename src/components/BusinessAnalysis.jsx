@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getDateString } from "@/lib/utils";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
 LineChart, Line, PieChart, Pie, PolarGrid
@@ -16,8 +16,12 @@ import { addDays, format } from "date-fns"
 import { Button } from "./ui/button";
 import { useMediaQuery } from "react-responsive";
 import { getLoginsVsDate, getRevenueVsDate, getOverallPromotionConversionRate, getPromotionTrendsPieChart, getPurchaseConversionRate, getPurchasesVsDate } from "@/services/analyticsService";
-
+import UserContext from "@/contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 const BusinessAnalysis = () => {
+    const userAction = useContext(UserContext).dispatch;
+    const navigate = useNavigate();
+    
     const [purchaseConversionRate, setPurchaseConversionRate] = useState(0);
     const [promotionConversionRate, setPromotionConversionRate] = useState(0);
     const [businessRevenueData, setBusinessRevenueData] = useState([])
@@ -47,35 +51,44 @@ const BusinessAnalysis = () => {
         const startDate = getDateString(date.from)
         const endDate = getDateString(date.to)
         let data
-        switch(type){
-            case "REVENUEVSTIME":
-                data = await getRevenueVsDate(startDate, endDate, promotionId)
-                setBusinessRevenueData(data)
-                return
-            case "PURCHASECONVERSIONRATE":
-                data = await getPurchaseConversionRate(startDate, endDate, promotionId)
-                setPurchaseConversionRate(data.conversionRate)
-                return
-            case "PROMOTIONCONVERSIONRATE":
-                data = await getOverallPromotionConversionRate(startDate, endDate, promotionId)
-                setPromotionConversionRate(data.conversionRate)
-                return
-            case "LOGINVSTIME":
-                data = await getLoginsVsDate(startDate, endDate, promotionId)
-                setBusinessLoginData(data)
-                return
-            case "PURCHASESVSTIME":
-                data = await getPurchasesVsDate(startDate, endDate, promotionId)
-                setBusinessPurchaseData(data)
-                return
-            case "PROMOTIONTRENDS":
-                data = await getPromotionTrendsPieChart(startDate, endDate, promotionId)
-
-                setBusinessPromotionShares(data)
-                return
-            default:
-                return
+        try{
+            switch(type){
+                case "REVENUEVSTIME":
+                    data = await getRevenueVsDate(startDate, endDate, promotionId)
+                    setBusinessRevenueData(data)
+                    return
+                case "PURCHASECONVERSIONRATE":
+                    data = await getPurchaseConversionRate(startDate, endDate, promotionId)
+                    setPurchaseConversionRate(data.conversionRate)
+                    return
+                case "PROMOTIONCONVERSIONRATE":
+                    data = await getOverallPromotionConversionRate(startDate, endDate, promotionId)
+                    setPromotionConversionRate(data.conversionRate)
+                    return
+                case "LOGINVSTIME":
+                    data = await getLoginsVsDate(startDate, endDate, promotionId)
+                    setBusinessLoginData(data)
+                    return
+                case "PURCHASESVSTIME":
+                    data = await getPurchasesVsDate(startDate, endDate, promotionId)
+                    setBusinessPurchaseData(data)
+                    return
+                case "PROMOTIONTRENDS":
+                    data = await getPromotionTrendsPieChart(startDate, endDate, promotionId)
+    
+                    setBusinessPromotionShares(data)
+                    return
+                default:
+                    return
+            }
+        }catch(err){
+            if(err.message==="SESSION_EXPIRED"){
+                alert("session expired login again");
+                userAction({type:'LOGOUT'});
+                navigate('/login');
+              }
         }
+        
     }
 
     useEffect(()=>{

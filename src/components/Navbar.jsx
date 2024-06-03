@@ -12,7 +12,7 @@ function Navbar(){
   const user=state.user;
   const handleLogout=(e)=>{
     e.preventDefault();
-    console.log('logout');
+    // console.log('logout');
     dispatch({type: "LOGOUT"});
     navigate('/login');
   }

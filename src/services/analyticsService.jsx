@@ -18,11 +18,12 @@ export const getRevenueConversionRateOfPromotion = async (startDate, endDate, pr
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -44,11 +45,12 @@ export const getPurchaseConversionRateOfPromotion = async (startDate, endDate, p
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -70,11 +72,12 @@ export const getPurchaseShareConversionRateOfPromotion = async (startDate, endDa
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -96,11 +99,12 @@ export const getAgeCriteriaSuccessRateOfPromotion = async (startDate, endDate, p
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -122,11 +126,12 @@ export const getGenderCriteriaSuccessRateOfPromotion = async (startDate, endDate
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -148,11 +153,11 @@ export const getMaritalStatusCriteriaSuccessRateOfPromotion = async (startDate, 
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
-        
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -173,11 +178,12 @@ export const getRevenueVsDateForPromotion = async (startDate, endDate, promotion
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -198,11 +204,12 @@ export const getLoginsVsDate = async (startDate, endDate)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -223,11 +230,12 @@ export const getRevenueVsDate = async (startDate, endDate)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -248,11 +256,12 @@ export const getPurchasesVsDate = async (startDate, endDate)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -273,11 +282,12 @@ export const getOverallPromotionConversionRate = async (startDate, endDate)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -298,11 +308,12 @@ export const getPurchaseConversionRate = async (startDate, endDate)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -323,11 +334,12 @@ export const getPromotionTrendsPieChart = async (startDate, endDate)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
