@@ -106,3 +106,35 @@ export const deleteUser = async (username)=>{
         alert('Error: ' + e.response.data.message);
     }
 }
+
+export const testUserToken = async ()=>{
+    
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    
+    try{
+        const response = await axios(`${BASE_URL}/api/auth/test-token`, //check gender?
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }
+        
+        
+    }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        } else {
+            alert('Error: ' + e.response.data.message);
+        }
+        
+    }
+}
