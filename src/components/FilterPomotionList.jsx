@@ -19,10 +19,14 @@ import { Label } from "./ui/label";
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { getAllPromotions } from "@/services/promotionsService";
+import UserContext from "@/contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const FilterPromotionList = ({defaultPromo}) => {
     const { promotions, dispatch } = useContext(PromotionsContext);
-
+    const userAction = useContext(UserContext).dispatch;
+    const navigate = useNavigate();
+    
     // const [promotionCategory, setPromotionCategory] = useState("")
     const [promotionType, setPromotionType] = useState("")
     const [validFromDate, setValidFromDate] = useState("")
@@ -30,26 +34,44 @@ const FilterPromotionList = ({defaultPromo}) => {
     const [status, setStatus] = useState(undefined)
 
     async function fetchPromotions(){
-        const data = await getAllPromotions()
-        const filteredData = data.filter(promo => defaultPromo===promo.category && promo.approved)
-        filteredData.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
-        const newData = filteredData.map((item, index) => ({
-            ...item,
-            _id: index + 1 // Incrementing id values
-        }));
-        return newData
+        try{
+            const data = await getAllPromotions()
+            const filteredData = data.filter(promo => defaultPromo===promo.category && promo.approved)
+            filteredData.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
+            const newData = filteredData.map((item, index) => ({
+                ...item,
+                _id: index + 1 // Incrementing id values
+            }));
+            return newData
+        }catch(err){
+            if(err.message==="SESSION_EXPIRED"){
+                alert("session expired login again");
+                userAction({type:'LOGOUT'});
+                navigate('/login');
+              }
+        }
+        
     }
 
     const filterPromotions = async() =>{
-        let promos = await fetchPromotions();
-        promos = promos.filter(element => {
-            const matchType = !promotionType || element.promotionType === promotionType;
-            const matchValidDate = (!validFromDate || Date.parse(element.validFrom) >= Date.parse(validFromDate)) &&
-                               (!validTillDate || Date.parse(element.validTill) <= Date.parse(validTillDate));
-            const matchStatus = status === undefined || element.active === (status === "true");
-            return matchValidDate && matchType && matchStatus;
-        });
-        dispatch({type:'ADDALL',payload:promos});
+        try{
+            let promos = await fetchPromotions();
+            promos = promos.filter(element => {
+                const matchType = !promotionType || element.promotionType === promotionType;
+                const matchValidDate = (!validFromDate || Date.parse(element.validFrom) >= Date.parse(validFromDate)) &&
+                                   (!validTillDate || Date.parse(element.validTill) <= Date.parse(validTillDate));
+                const matchStatus = status === undefined || element.active === (status === "true");
+                return matchValidDate && matchType && matchStatus;
+            });
+            dispatch({type:'ADDALL',payload:promos});
+        }catch(err){
+            if(err.message==="SESSION_EXPIRED"){
+                alert("session expired login again");
+                userAction({type:'LOGOUT'});
+                navigate('/login');
+              }
+        }
+        
     }
 
     return (

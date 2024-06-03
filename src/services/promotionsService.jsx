@@ -19,11 +19,12 @@ export const getApprovedPromotions = async ()=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -43,11 +44,12 @@ export const getAllPromotions = async() => {
         )
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
     }
     catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -69,11 +71,12 @@ export const getNotApprovedPromotions = async ()=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -95,11 +98,12 @@ export const approvePromotion = async (id)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -121,11 +125,12 @@ export const disapprovePromotion = async (id)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -148,11 +153,12 @@ export const deletePromotion = async (id)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -176,11 +182,12 @@ export const editPromotion = async (id, promotionChanges)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -204,11 +211,12 @@ export const createPromotion = async (promotion)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -230,11 +238,12 @@ export const getPromotionById = async (id)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }
@@ -256,11 +265,12 @@ export const deactivatePromotion = async (id)=>{
         
         if(response.status==200){
             return response.data;
-        }else{
-            throw new Error("Error");
         }
         
     }catch(e){
+        if(e.response.data.message==="SESSION_EXPIRED"){
+            throw new Error("SESSION_EXPIRED");
+        }
         alert('Error: ' + e.response.data.message);
     }
 }

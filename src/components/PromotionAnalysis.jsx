@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PromotionCategoryIcon } from "./PromoCategoryIcon";
 import { convertToTitleCase, getDateString } from "@/lib/utils";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -20,11 +20,14 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { getAgeCriteriaSuccessRateOfPromotion, getGenderCriteriaSuccessRateOfPromotion, getMaritalStatusCriteriaSuccessRateOfPromotion, getPurchaseConversionRate, getPurchaseConversionRateOfPromotion, getPurchaseShareConversionRateOfPromotion, getRevenueConversionRateOfPromotion, getRevenueVsDateForPromotion } from "@/services/analyticsService";
+import UserContext from "@/contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const PromotionAnalysis = ({Promotion}) => {
     const isSmallScreen = useMediaQuery({ maxWidth: 767 });
     const isLargeScreen = useMediaQuery({ minWidth: 768 });
-
+    const {dispatch} = useContext(UserContext);
+    const navigate = useNavigate();
     const [promotionRevenueData, setPromotionRevenueData] = useState([])
     const [revenueConversionRate, setRevenueConversionRate] = useState(0);
     const [purchaseConversionRate, setPurchaseConversionRate] = useState(0);
@@ -53,38 +56,47 @@ const PromotionAnalysis = ({Promotion}) => {
         const startDate = getDateString(date.from)
         const endDate = getDateString(date.to)
         let data
-        switch(type){
-            case "REVENUEVSTIME":
-                data = await getRevenueVsDateForPromotion(startDate, endDate, promotionId)
-                setPromotionRevenueData(data)
-                return
-            case "REVENUECONVERSIONRATE":
-                data = await getRevenueConversionRateOfPromotion(startDate, endDate, promotionId)
-                setRevenueConversionRate(data.conversionRate)
-                return
-            case "PURCHASECONVERSIONRATE":
-                data = await getPurchaseConversionRateOfPromotion(startDate, endDate, promotionId)
-                setPurchaseConversionRate(data.conversionRate)
-                return
-            case "PROMOTIONCONVERSIONRATE":
-                data = await getPurchaseShareConversionRateOfPromotion(startDate, endDate, promotionId)
-                setPromotionConversionRate(data.conversionRate)
-                return
-            case "AGESUCCESSRATE":
-                data = await getAgeCriteriaSuccessRateOfPromotion(startDate, endDate, promotionId)
-                setAgeSuccessConversionRate(data.conversionRate)
-                return
-            case "MARITALSTATUSSUCCESSRATE":
-                data = await getMaritalStatusCriteriaSuccessRateOfPromotion(startDate, endDate, promotionId)
-                setMaritalStatusSuccessConversionRate(data.conversionRate)
-                return
-            case "GENDERSUCCESSRATE":
-                data = await getGenderCriteriaSuccessRateOfPromotion(startDate, endDate, promotionId)
-                setGenderSuccessConversionRate(data.conversionRate)
-                return
-            default:
-                return
+        try{
+            switch(type){
+                case "REVENUEVSTIME":
+                    data = await getRevenueVsDateForPromotion(startDate, endDate, promotionId)
+                    setPromotionRevenueData(data)
+                    return
+                case "REVENUECONVERSIONRATE":
+                    data = await getRevenueConversionRateOfPromotion(startDate, endDate, promotionId)
+                    setRevenueConversionRate(data.conversionRate)
+                    return
+                case "PURCHASECONVERSIONRATE":
+                    data = await getPurchaseConversionRateOfPromotion(startDate, endDate, promotionId)
+                    setPurchaseConversionRate(data.conversionRate)
+                    return
+                case "PROMOTIONCONVERSIONRATE":
+                    data = await getPurchaseShareConversionRateOfPromotion(startDate, endDate, promotionId)
+                    setPromotionConversionRate(data.conversionRate)
+                    return
+                case "AGESUCCESSRATE":
+                    data = await getAgeCriteriaSuccessRateOfPromotion(startDate, endDate, promotionId)
+                    setAgeSuccessConversionRate(data.conversionRate)
+                    return
+                case "MARITALSTATUSSUCCESSRATE":
+                    data = await getMaritalStatusCriteriaSuccessRateOfPromotion(startDate, endDate, promotionId)
+                    setMaritalStatusSuccessConversionRate(data.conversionRate)
+                    return
+                case "GENDERSUCCESSRATE":
+                    data = await getGenderCriteriaSuccessRateOfPromotion(startDate, endDate, promotionId)
+                    setGenderSuccessConversionRate(data.conversionRate)
+                    return
+                default:
+                    return
+            }
+        }catch(err){
+            if(err.message==="SESSION_EXPIRED"){
+                alert("session expired login again");
+                dispatch({type:'LOGOUT'});
+                navigate('/login');
+              }
         }
+        
     }
 
     useEffect(()=>{
