@@ -314,3 +314,26 @@ export const getPromotionTrendsPieChart = async (startDate, endDate)=>{
         alert('Error: ' + e.response.data.message);
     }
 }
+
+export const getActivePromotions = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/active-promotions?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        
+        if(response.status==200){
+            return response.data;
+        }
+        
+    }catch(e){
+        alert('Error: ' + e.response.data.message);
+    }
+}

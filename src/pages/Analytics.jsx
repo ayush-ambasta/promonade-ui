@@ -66,7 +66,7 @@ function Analytics(){
       </div>
 
       <div className='w-full flex-col flex gap-8'>
-        <div className='flex justify-between lg:flex-row flex-col gap-5 mx-5 lg:ml-0 '>
+        <div >
             {loading &&(
                 <div className="flex justify-center w-full h-screen items-center">
                     Loading Promotion ...
@@ -78,7 +78,7 @@ function Analytics(){
                     No Promotions found ...
                 </div>
             )}
-          <ActivePromotions />
+          
         </div>
         <hr className='w-full '/>
           <BusinessAnalysis/>
