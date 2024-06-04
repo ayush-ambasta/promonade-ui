@@ -21,9 +21,10 @@ import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { createPromotion } from "@/services/promotionsService";
-
+import { useToast } from "./ui/use-toast";
 
 const CreatePromotion = ({defaultPromo}) => {
+    const { toast } = useToast()
     const { promotions, dispatch } = useContext(PromotionsContext);
     const [name, setName] = useState("")
     const [type, setType] = useState("")
@@ -39,15 +40,27 @@ const CreatePromotion = ({defaultPromo}) => {
 
     async function savePromotionValues(){
         if(!name || !type || !validFromDate || !validFromTime || !validTillDate || !validTillTime || !ageCategory || !gender || !maritalStatus || !productType){
-            alert("Please fill all the fields to create a promotion")
+            toast({
+                variant: "destructive",
+                title: "Promotion Creation Failed",
+                description: "Please fill all the fields to create a promotion!",
+            })
             return
         }
         if(!isValidDateString(validFromDate) || !isValidDateString(validTillDate)){
-            alert("Validity Date is not in right format!")
+            toast({
+                variant: "destructive",
+                title: "Promotion Creation Failed",
+                description: "Validity Date is not in right format!",
+            })
             return
         }
         if(!isValidTimeString(validFromTime) || !isValidTimeString(validTillTime)){
-            alert("Validity Time is not in right format!")
+            toast({
+                variant: "destructive",
+                title: "Promotion Creation Failed",
+                description: "Validity Time is not in right format!",
+            })
             return
         }
         try{
@@ -63,7 +76,11 @@ const CreatePromotion = ({defaultPromo}) => {
             })
             dispatch({type:'CREATE',payload:{...promotion, _id: promotions.length+1}})
         }catch(err){
-            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Promotion Creation Failed",
+                description: String(err).split(":")[1],
+            })
         }
         
     }
@@ -84,7 +101,7 @@ const CreatePromotion = ({defaultPromo}) => {
     return (
 
         <Dialog className="w-full flex justify-center">
-        <DialogTrigger onClick={resetStates} className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-black rounded-lg text-white">Create</div></DialogTrigger>
+        <DialogTrigger onClick={resetStates} className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-primary text-primary-foreground rounded-lg ">Create</div></DialogTrigger>
         <DialogContent className="font-light">
         <DialogHeader>
             <DialogTitle>Create Promotion</DialogTitle>

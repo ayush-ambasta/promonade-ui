@@ -19,7 +19,6 @@ import {
   DialogTrigger,
   DialogClose
 } from "@/components/ui/dialog"
-
 import {
   Select,
   SelectContent,
@@ -27,7 +26,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -39,13 +37,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useToast } from "./ui/use-toast";
 
 const teams = ["MILESTONE_PROMO_TEAM", "REFERRAL_PROMO_TEAM", "HIGHPURCHASE_PROMO_TEAM", "LOYALTY_PROMO_TEAM", "FLASHSALE_PROMO_TEAM", "SEASONAL_PROMO_TEAM"];
 const roles = ["MANAGER", "OWNER"]
 
 export const TeamDetails = () => {
   const {state,teamName} = useContext(UserContext);
-
+  const { toast } = useToast()
   const user = state?.user;
   const [team, setTeam] = useState();
   const defaultTeamName = user?.team;
@@ -62,7 +61,11 @@ export const TeamDetails = () => {
       setTeam(response);
       setloading(false);
     }catch(err){
-      console.log(err)
+      toast({
+        variant: "destructive",
+        title: "Team Members Fetch Failed",
+        description: "Error in fetching team members!",
+    })
     }
     
   }
@@ -91,23 +94,45 @@ export const TeamDetails = () => {
   };
 
   const handleAddMember = async() => {
-    console.log(newMember)
     if (!newMember.name || !newMember.username || !newMember.password || !newMember.email || !newMember.role || !newMember.team) {
-      alert('All fields need to be filled.');
-      return; // Exit the function early if any field is empty
+      toast({
+        variant: "destructive",
+        title: "Add Team Member Failure",
+        description: 'All fields need to be filled.',
+      })
+      return; 
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(newMember.email)) {
-        alert('Invalid email format.');
-        return; // Exit the function early if email format is invalid
+      toast({
+        variant: "destructive",
+        title: "Add Team Member Failure",
+        description: 'Email Format Invalid!',
+      })
+      return; 
     }
-    await addUser(newMember);
+    try{
+      await addUser(newMember);
+    } catch(err){
+      toast({
+        variant: "destructive",
+        title: "Add Team Member Failure",
+        description: String(err).split(":")[1],
+      })
+    }
     getByTeamName(newMember.team);
   };
 
   const handleDelete = async (username) => {
-    await deleteUser(username);
-    
+    try{
+      await deleteUser(username);
+    } catch(err){
+      toast({
+        variant: "destructive",
+        title: "Delete Team Member Failure",
+        description: String(err).split(":")[1],
+      })
+    }
     setTeam(team.filter(member => member.username !== username));
   };
 
@@ -129,7 +154,7 @@ export const TeamDetails = () => {
                 {user.role === 'OWNER' && (
                 <>
                     <Dialog>
-                      <DialogTrigger className="bg-black text-white px-3 py-1 rounded text-xs mr-2">
+                      <DialogTrigger className="bg-primary text-primary-foreground px-3 py-1 rounded text-xs mr-2">
                         Add Member
                       </DialogTrigger>
                       <DialogContent>
@@ -246,7 +271,7 @@ export const TeamDetails = () => {
                             
                           {member.role !== 'OWNER' && user?.team === member?.team && (
                             <AlertDialog>
-                              <AlertDialogTrigger  className="bg-black text-white px-3 py-1 rounded text-xs">Delete</AlertDialogTrigger>
+                              <AlertDialogTrigger  className="bg-primary text-primary-foreground px-3 py-1 rounded text-xs">Delete</AlertDialogTrigger>
 
                               <AlertDialogContent>
                                 <AlertDialogHeader>

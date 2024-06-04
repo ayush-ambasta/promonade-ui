@@ -81,7 +81,7 @@ const getPromotion=async() => {
                   </div>
 
                   <div>
-                    <SheetTrigger className="bg-black text-white px-3 py-1 rounded text-xs" >Audit</SheetTrigger>
+                    <SheetTrigger className="bg-primary text-primary-foreground px-3 py-1 rounded text-xs" >Audit</SheetTrigger>
                     <AuditPromotion promotion={promo} setPromotions={setPromotions} promotions={promotions}/>
                   </div>
                 </div>

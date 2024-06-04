@@ -21,7 +21,7 @@ export const getRevenueConversionRateOfPromotion = async (startDate, endDate, pr
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -45,7 +45,7 @@ export const getPurchaseConversionRateOfPromotion = async (startDate, endDate, p
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -69,7 +69,7 @@ export const getPurchaseShareConversionRateOfPromotion = async (startDate, endDa
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -93,8 +93,7 @@ export const getAgeCriteriaSuccessRateOfPromotion = async (startDate, endDate, p
         }
         
     }catch(e){
-
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -118,8 +117,7 @@ export const getGenderCriteriaSuccessRateOfPromotion = async (startDate, endDate
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -142,8 +140,7 @@ export const getMaritalStatusCriteriaSuccessRateOfPromotion = async (startDate, 
             return response.data;
         }
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -166,8 +163,7 @@ export const getRevenueVsDateForPromotion = async (startDate, endDate, promotion
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -190,8 +186,7 @@ export const getLoginsVsDate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -214,8 +209,7 @@ export const getRevenueVsDate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -238,8 +232,7 @@ export const getPurchasesVsDate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -262,8 +255,7 @@ export const getOverallPromotionConversionRate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -286,8 +278,7 @@ export const getPurchaseConversionRate = async (startDate, endDate)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -310,7 +301,29 @@ export const getPromotionTrendsPieChart = async (startDate, endDate)=>{
         }
         
     }catch(e){
+        throw new Error(e.response.data.message);
+    }
+}
+
+export const getActivePromotions = async (startDate, endDate)=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.accessToken;
+    try{
+        const response = await axios(`${BASE_URL}/api/analytics/active-promotions?start=${startDate}&end=${endDate}`,
+            {
+                method: 'GET',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
         
-        alert('Error: ' + e.response.data.message);
+        if(response.status==200){
+            return response.data;
+        }
+        
+    }catch(e){
+        throw new Error(e.response.data.message);
     }
 }

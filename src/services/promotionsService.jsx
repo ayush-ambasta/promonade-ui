@@ -22,8 +22,7 @@ export const getApprovedPromotions = async ()=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -45,8 +44,7 @@ export const getAllPromotions = async() => {
         }
     }
     catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -70,8 +68,7 @@ export const getNotApprovedPromotions = async ()=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -95,8 +92,7 @@ export const approvePromotion = async (id)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -120,8 +116,7 @@ export const disapprovePromotion = async (id)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -146,8 +141,7 @@ export const deletePromotion = async (id)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -173,8 +167,7 @@ export const editPromotion = async (id, promotionChanges)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -200,8 +193,7 @@ export const createPromotion = async (promotion)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -225,8 +217,7 @@ export const getPromotionById = async (id)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -250,7 +241,6 @@ export const deactivatePromotion = async (id)=>{
         }
         
     }catch(e){
-        
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }

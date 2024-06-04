@@ -19,8 +19,10 @@ import { Label } from "./ui/label";
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { getAllPromotions } from "@/services/promotionsService";
+import { useToast } from "./ui/use-toast";
 
 const FilterPromotionList = ({defaultPromo}) => {
+    const { toast } = useToast()
     const { promotions, dispatch } = useContext(PromotionsContext);
     
     // const [promotionCategory, setPromotionCategory] = useState("")
@@ -40,7 +42,11 @@ const FilterPromotionList = ({defaultPromo}) => {
             }));
             return newData
         }catch(err){
-            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Filter Promotions Failed",
+                description: String(err).split(":")[1],
+            })
         }
         
     }
@@ -57,18 +63,13 @@ const FilterPromotionList = ({defaultPromo}) => {
             });
             dispatch({type:'ADDALL',payload:promos});
         }catch(err){
-            if(err.message==="SESSION_EXPIRED"){
-                alert("session expired login again");
-                userAction({type:'LOGOUT'});
-                navigate('/login');
-              }
+            console.log(err)
         }
-        
     }
 
     return (
         <Dialog className="w-full flex justify-center">
-            <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-black rounded-lg text-white">Filter</div></DialogTrigger>
+            <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-primary text-primary-foreground rounded-lg ">Filter</div></DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                 <DialogTitle className="mb-4">Filter Promotions</DialogTitle>

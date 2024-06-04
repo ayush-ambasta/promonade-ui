@@ -16,18 +16,22 @@ import {
 import { deletePromotion } from "@/services/promotionsService"
 import PromotionsContext from "@/contexts/PromotionsContext";
 import { useContext } from "react";
-
+import { useToast } from "./ui/use-toast";
 
 
 export function DataTable({ columns, data }) {
-
+  const {toast} = useToast();
   const {dispatch} = useContext(PromotionsContext)
 
   async function deletePromotionWithID(id, validFrom){
     const currentDate = Date.now()
     const validity = Date.parse(validFrom)
     if(currentDate > validity){
-      alert("You cannot delete this promotion. It was once Live!")
+      toast({
+        variant: "destructive",
+        title: "Operation Failed",
+        description: "You cannot delete this promotion. It was once Live!",
+      })
     } else {
       const resp = await deletePromotion(id)
       if(resp.success)

@@ -16,10 +16,12 @@ import { addDays, format } from "date-fns"
 import { Button } from "./ui/button";
 import { useMediaQuery } from "react-responsive";
 import { getLoginsVsDate, getRevenueVsDate, getOverallPromotionConversionRate, getPromotionTrendsPieChart, getPurchaseConversionRate, getPurchasesVsDate } from "@/services/analyticsService";
+import { useToast } from "./ui/use-toast";
 
 
 const BusinessAnalysis = () => {
-    
+    const {toast} = useToast();
+
     const [purchaseConversionRate, setPurchaseConversionRate] = useState(0);
     const [promotionConversionRate, setPromotionConversionRate] = useState(0);
     const [businessRevenueData, setBusinessRevenueData] = useState([])
@@ -80,7 +82,11 @@ const BusinessAnalysis = () => {
                     return
             }
         }catch(err){
-            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Filter Promotions Failed",
+                description: String(err).split(":")[1],
+            })
         }
         
     }

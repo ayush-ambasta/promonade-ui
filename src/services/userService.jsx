@@ -19,8 +19,7 @@ export const login = async (username,password)=>{
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);
-        // console.error(e);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -47,12 +46,11 @@ export const getByTeam = async (teamName)=>{
         
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
 export const addUser = async (post)=>{
-    // console.log(post);s
     try{
         const response = await axios(`${BASE_URL}/api/auth/signup`,
             {
@@ -70,8 +68,7 @@ export const addUser = async (post)=>{
         }
         
     }catch(e){
-
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -95,7 +92,7 @@ export const deleteUser = async (username)=>{
         }
         
     }catch(e){
-        alert('Error: ' + e.response.data.message);
+        throw new Error(e.response.data.message);
     }
 }
 
@@ -125,7 +122,7 @@ export const testUserToken = async ()=>{
         if(e.response.data.message==="SESSION_EXPIRED"){
             throw new Error("SESSION_EXPIRED");
         } else {
-            alert('Error: ' + e.response.data.message);
+            throw new Error(e.response.data.message);
         }
         
     }

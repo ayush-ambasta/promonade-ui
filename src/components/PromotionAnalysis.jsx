@@ -20,8 +20,12 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { getAgeCriteriaSuccessRateOfPromotion, getGenderCriteriaSuccessRateOfPromotion, getMaritalStatusCriteriaSuccessRateOfPromotion, getPurchaseConversionRate, getPurchaseConversionRateOfPromotion, getPurchaseShareConversionRateOfPromotion, getRevenueConversionRateOfPromotion, getRevenueVsDateForPromotion } from "@/services/analyticsService";
+import { ActivePromotions } from "./ActivePromotions";
+import { useToast } from "./ui/use-toast";
 
 const PromotionAnalysis = ({Promotion}) => {
+    const {toast} = useToast();
+
     const isSmallScreen = useMediaQuery({ maxWidth: 767 });
     const isLargeScreen = useMediaQuery({ minWidth: 768 });
 
@@ -87,7 +91,11 @@ const PromotionAnalysis = ({Promotion}) => {
                     return
             }
         }catch(err){
-            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Filter Promotions Failed",
+                description: String(err).split(":")[1],
+            })
         }
     }
 
@@ -97,10 +105,8 @@ const PromotionAnalysis = ({Promotion}) => {
 
 
     return (
+        <div className='flex justify-between lg:flex-row flex-col gap-5 mx-5 lg:ml-0 '>
         <div className="mt-5 min-h-screen">
-            
-            
-            {Promotion!={} && ( <>
             <div className="flex items-center mb-4">
                 <h1  className=" p-3 font-normal text-sm text-slate-500"> Your Analytics For Promotion: <span className="lg:text-2xl lg:ml-5 text-md text-slate-700 font-normal">{Promotion.name} </span></h1>
                 <PromotionCategoryIcon category={Promotion.category} size={35}/>
@@ -111,7 +117,7 @@ const PromotionAnalysis = ({Promotion}) => {
                     <h4 className="text-sm text-slate-600">Analysis Period</h4>
                     <DatePickerWithRange date={date} setDate={setDate} />
                     <Button className="h-8" onClick={() => {performAnalysis(Promotion.id)}}>Analyse</Button>
-                    <SheetTrigger className="bg-slate-800 text-white rounded-lg text-sm px-3 p-2">Promotion Details</SheetTrigger>
+                    <SheetTrigger className="bg-primary text-primary-foreground rounded-lg text-sm px-3 p-2">Promotion Details</SheetTrigger>
                     <AuditPromotion promotion={Promotion} analytics={true}/>
                 </Sheet>
             </div>
@@ -282,7 +288,8 @@ const PromotionAnalysis = ({Promotion}) => {
                 </div>
             </div> 
             </TooltipProvider>
-            </>)}
+        </div>
+        <ActivePromotions date={date}/>
         </div>
     )
 }
