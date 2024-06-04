@@ -1,6 +1,5 @@
 import React from 'react'
 import { PreviousPromotions } from '@/components/PreviousPromotions';
-import { ActivePromotions } from '@/components/ActivePromotions';
 import PromotionAnalysis from '@/components/PromotionAnalysis';
 import BusinessAnalysis from '@/components/BusinessAnalysis';
 import { useLocation } from "react-router-dom";

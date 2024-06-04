@@ -21,8 +21,11 @@ import {
   } from "@/components/ui/sheet"
 import { getAgeCriteriaSuccessRateOfPromotion, getGenderCriteriaSuccessRateOfPromotion, getMaritalStatusCriteriaSuccessRateOfPromotion, getPurchaseConversionRate, getPurchaseConversionRateOfPromotion, getPurchaseShareConversionRateOfPromotion, getRevenueConversionRateOfPromotion, getRevenueVsDateForPromotion } from "@/services/analyticsService";
 import { ActivePromotions } from "./ActivePromotions";
+import { useToast } from "./ui/use-toast";
 
 const PromotionAnalysis = ({Promotion}) => {
+    const {toast} = useToast();
+
     const isSmallScreen = useMediaQuery({ maxWidth: 767 });
     const isLargeScreen = useMediaQuery({ minWidth: 768 });
 
@@ -88,7 +91,11 @@ const PromotionAnalysis = ({Promotion}) => {
                     return
             }
         }catch(err){
-            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Filter Promotions Failed",
+                description: String(err).split(":")[1],
+            })
         }
     }
 
@@ -110,7 +117,7 @@ const PromotionAnalysis = ({Promotion}) => {
                     <h4 className="text-sm text-slate-600">Analysis Period</h4>
                     <DatePickerWithRange date={date} setDate={setDate} />
                     <Button className="h-8" onClick={() => {performAnalysis(Promotion.id)}}>Analyse</Button>
-                    <SheetTrigger className="bg-slate-800 text-white rounded-lg text-sm px-3 p-2">Promotion Details</SheetTrigger>
+                    <SheetTrigger className="bg-primary text-primary-foreground rounded-lg text-sm px-3 p-2">Promotion Details</SheetTrigger>
                     <AuditPromotion promotion={Promotion} analytics={true}/>
                 </Sheet>
             </div>

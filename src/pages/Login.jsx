@@ -13,8 +13,11 @@ import UserContext from "@/contexts/UserContext";
 import { login } from "@/services/userService";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+
 
 function Login() {
+  const { toast } = useToast()
   const [username, setusername] = useState();
   const [password, setpassword] = useState();
   const {state,dispatch,setteam} = useContext(UserContext);
@@ -38,6 +41,11 @@ function Login() {
       dispatch({type:'LOGIN',payload:response});
       navigate('/');
     }catch(e){
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: String(e).split(":")[1],
+      })
       setusername('');
       setpassword('');
       return;

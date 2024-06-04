@@ -33,10 +33,10 @@ export const ActivePromotions = ({date}) => {
 
 
   return (
-    <div className="grid auto-rows-max items-start lg:w-[29%] mt-6  gap-4 rounded-2xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 ">
+    <div className="grid auto-rows-max items-start lg:w-[26%] lg:min-w-[26%] mt-6  gap-4 rounded-2xl lg:min-h-[80vh] bg-white shadow-sm lg:gap-8 ">
       <Card x-chunk="dashboard-07-chunk-3" className="rounded-2xl relative shadow-none border-none bg-inherit">
-        <CardHeader >
-          <CardTitle className="font-medium text-center text-xl text-red-700">Active Promotions</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="font-normal text-center text-xl text-red-700">Active Promotions</CardTitle>
         </CardHeader>
         <CardContent className="p-4 pt-0">
         {promotions.length === 0 ? <h4 className='text-sm text-slate-400'>
@@ -50,7 +50,7 @@ export const ActivePromotions = ({date}) => {
         
             {promotions?.map((promo) => (
               <div key={promo?.id}
-                className="flex cursor-pointer items-center gap-3 py-1 text-muted-foreground transition-all hover:text-primary"
+                className="flex bg-red-50 px-2 my-3 rounded-xl cursor-pointer items-center gap-3 py-1 text-muted-foreground transition-all hover:text-primary"
               >
                 <Link to={"/analytics?id=" + promo.id}
                 className="flex cursor-pointer justify-between items-center gap-3 rounded-lg  py-1 text-muted-foreground transition-all hover:text-primary"
@@ -60,7 +60,7 @@ export const ActivePromotions = ({date}) => {
                   <h4 className='text-sm font-medium'>{promo?.name}</h4>
                   <div >
                     <h6 className='text-xs font-normal'>{convertToTitleCase(promo?.category)}</h6>
-                    <h6 className='text-xs font-normal '>Ends on {formatDateToISTWords(promo?.validTill)}</h6>
+                    <h6 className='text-xs font-normal italic'>Ends on {formatDateToISTWords(promo?.validTill)}</h6>
                   </div>
                 </div>
                 </Link>

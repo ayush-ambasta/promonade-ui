@@ -111,7 +111,7 @@ export const PreviousPromotions = ({Promotion}) => {
 
         {/* Filter Options */}
         <Dialog className="w-full flex justify-center">
-          <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-1 flex items-center h-6 my-2 bg-black rounded-lg text-white">Filter</div></DialogTrigger>
+          <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-1 flex items-center h-6 my-2 bg-primary text-primary-foreground rounded-lg ">Filter</div></DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="mb-4">Filter Promotions</DialogTitle>
