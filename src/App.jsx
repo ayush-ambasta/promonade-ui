@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import React from 'react'
 import {UserProvider} from './contexts/UserProvider'
@@ -9,6 +8,8 @@ import User from './pages/User'
 import Promotion from './pages/Promotion'
 import Analytics from './pages/Analytics'
 import { RequireAuth } from './requireAuth'
+import { Toaster } from "@/components/ui/toaster"
+
 
 function App() {
 
@@ -22,10 +23,9 @@ function App() {
           <Route path='/analytics' element={<RequireAuth><Analytics/></RequireAuth>}/> 
           <Route path='/me' element={<RequireAuth><User/></RequireAuth>}/>
           
-          
           <Route path='/login' element={<Login />}/>
         </Routes> 
-      
+        <Toaster/>
     </UserProvider>
   )
 }

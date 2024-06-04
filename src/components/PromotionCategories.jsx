@@ -1,5 +1,5 @@
 import React from 'react'
-import { convertToTitleCase, convertToSnakeCase } from '@/lib/utils';
+import { convertToTitleCase } from '@/lib/utils';
 import { PromotionCategoryIcon } from './PromoCategoryIcon';
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
@@ -8,14 +8,6 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 export const PromotionCategories = ({defaultPromo, setDefaultPromo}) => {
 
   return (
-    // <div className="grid auto-rows-max items-start gap-4 bg-white lg:gap-8 min-h-screen border-r-[1px] border-solid border-grey ">
-    //   <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
-    //     <CardHeader>
-    //       <CardTitle className="font-normal text-xl py- text-slate-600">Promotion Categories</CardTitle>
-    //     </CardHeader>
-
-        
-    //     <CardContent className="px-0">
     <div className="flex max-h-screen flex-col lg:shadow-md lg:h-screen">
         <div className="flex flex-col items-center p-4 lg:px-6">
               <span className="font-normal text-xl text-slate-600">Promotion Categories</span>
