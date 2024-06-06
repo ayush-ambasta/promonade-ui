@@ -23,8 +23,10 @@ import { MoreHorizontal } from "lucide-react"
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { editPromotion } from "@/services/promotionsService"
+import { useToast } from "../ui/use-toast";
 
 const EditPromotion = ({promotion}) => {
+    const { toast } = useToast()
     const { dispatch } = useContext(PromotionsContext);
 
     const [name, setName] = useState(promotion.name)
@@ -40,15 +42,30 @@ const EditPromotion = ({promotion}) => {
 
 
     async function savePromotionValues(){
-
+        if(!name || !type || !validFromDate || !validFromTime || !validTillDate || !validTillTime || !ageCategory || !gender || !maritalStatus || !productType){
+            toast({
+                variant: "destructive",
+                title: "Promotion Edit Failed",
+                description: "Please fill all the fields to create a promotion!",
+            })
+            return
+        }
         promotion.name = name;
         promotion.promotionType = type;
         if(!isValidDateString(validFromDate) || !isValidDateString(validTillDate)){
-            alert("Validity Date is not in right format!")
+            toast({
+                variant: "destructive",
+                title: "Promotion Edit Failed",
+                description: "Validity Date is not in right format!",
+            })
             return
         }
         if(!isValidTimeString(validFromTime) || !isValidTimeString(validTillTime)){
-            alert("Validity Time is not in right format!")
+            toast({
+                variant: "destructive",
+                title: "Promotion Edit Failed",
+                description: "Validity Time is not in right format!",
+            })
             return
         }
         promotion.validFrom = validFromDate +"T"+ validFromTime + "+05:30"

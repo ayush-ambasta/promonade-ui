@@ -19,8 +19,10 @@ import { MoreHorizontal } from "lucide-react"
 import { approvePromotion, disapprovePromotion } from "@/services/promotionsService"
 import UserContext from "@/contexts/UserContext"
 import { useContext } from "react"
+import { useToast } from "../ui/use-toast";
 
 const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
+    const { toast } = useToast()
     const { state } = useContext(UserContext);
     const user = state.user;
     
@@ -28,10 +30,16 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
         try{
           if (action === 'accept') {
             await approvePromotion(promotion.id);
-            alert('Promotion Accepted');
+            toast({
+                title: "Promotion Approval",
+                description: "Promotion Accepted"
+            })
           } else if (action === 'decline') {
             await disapprovePromotion(promotion.id);
-            alert('Promotion Declined');
+            toast({
+                title: "Promotion Approval",
+                description: "Promotion Declined"
+            })
           }
           setPromotions(promotions.filter(promo => promo?.id !== promotion?.id));
         }catch(err){
