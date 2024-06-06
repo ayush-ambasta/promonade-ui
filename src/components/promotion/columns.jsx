@@ -16,8 +16,8 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { Label } from "@radix-ui/react-dropdown-menu"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import { MoreHorizontal } from "lucide-react"
 import {
   AlertDialog,
@@ -104,19 +104,19 @@ export const columns = [
                 <PopoverTrigger><div className="px-2 pb-1 border-2 rounded-md">. . .</div></PopoverTrigger>
                 <PopoverContent>
                     <div className="flex text-xs justify-between items-center">
-                        <Label htmlFor="ageCategory" className="text-black">Age Category</Label>
+                        <Label htmlFor="ageCategory" className="text-primary">Age Category</Label>
                         <Input className="text-xs w-2/5 py-2" value={convertToTitleCase(criteria.ageCategory)} disabled/>
                     </div>
                     <div className="flex text-xs justify-between items-center">
-                        <Label htmlFor="gender" className="text-black">Gender</Label>
+                        <Label htmlFor="gender" className="text-primary">Gender</Label>
                         <Input className="text-xs w-2/5 py-2" value={convertToTitleCase(criteria.gender)} disabled/>
                     </div>
                     <div className="flex text-xs justify-between items-center">
-                        <Label htmlFor="maritalStatus" className="text-black">Marital Status</Label>
+                        <Label htmlFor="maritalStatus" className="text-primary">Marital Status</Label>
                         <Input className="text-xs w-2/5 py-2 " value={convertToTitleCase(criteria.maritalStatus)} disabled/>
                     </div>
                     <div className="flex text-xs justify-between items-center">
-                        <Label htmlFor="productType" className="text-black">Product Type</Label>
+                        <Label htmlFor="productType" className="text-primary">Product Type</Label>
                         <Input className="text-xs w-2/5 py-2" value={convertToTitleCase(criteria.productType)} disabled/>
                     </div>
                     
@@ -151,7 +151,7 @@ export const columns = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem >
-                  <AlertDialogTrigger className="text-red-800 font-normal">Delete</AlertDialogTrigger>
+                  <AlertDialogTrigger className="text-red-800 dark:text-red-500 font-normal">Delete</AlertDialogTrigger>
                 </DropdownMenuItem>
                 <DropdownMenuItem >
                   <DialogTrigger>Edit</DialogTrigger>

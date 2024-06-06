@@ -1,15 +1,15 @@
-import { Notification } from '@/components/Notification';
-import {Team} from '@/components/Team';
-import { TeamDetails } from '@/components/TeamDetails';
-import { UserDetails } from '@/components/UserDetails';
+import { Notification } from '@/components/user/Notification';
+import {Team} from '@/components/user/Team';
+import { TeamDetails } from '@/components/user/TeamDetails';
+import { UserDetails } from '@/components/user/UserDetails';
 import React from 'react'
 
 function User(){
   return (
     <>
-    <main className="bg-zinc-100 relative h-full lg:h-[120vh]">
+    <main className="bg-zinc-100 dark:bg-slate-900 relative h-full lg:h-[120vh]">
       <div className='flex flex-col relative lg:top-5 lg:flex-row items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8  lg:justify-between '>
-        <div className="rounded-lg flex flex-col gap-4 pb-4 lg:gap-8 w-full lg:w-1/4 order-2 lg:order-1 bg-white">
+        <div className="rounded-lg flex flex-col gap-4 pb-4 lg:gap-8 w-full lg:w-1/4 order-2 lg:order-1 bg-white dark:bg-slate-950">
           <Team/>
         </div>
         <div className="flex flex-col gap-4 lg:gap-8 w-full lg:w-2/4 order-3 lg:order-2">

@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { getApprovedPromotions } from '@/services/promotionsService';
 import {
@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Label } from './ui/label';
+import { Label } from '../ui/label';
 import {
   Select,
   SelectContent,
@@ -93,15 +93,15 @@ export const PreviousPromotions = ({Promotion}) => {
 
 
   return (
-    <div className="grid h-fit lg:h-full auto-rows-max items-start gap-4 bg-white lg:gap-8 lg:min-h-screen shadow-lg lg:min-w-60">
+    <div className="grid h-fit lg:h-full auto-rows-max items-start gap-4 bg-white dark:bg-slate-950 lg:gap-8 lg:min-h-screen shadow-lg lg:min-w-60">
       <Card x-chunk="dashboard-07-chunk-3 " className="shadow-none rounded-none border-none bg-inherit">
         <CardHeader>
-          <CardTitle className="font-normal text-xl text-slate-600">Promotions</CardTitle>
+          <CardTitle className="font-normal text-xl dark:text-slate-300 text-slate-600">Promotions</CardTitle>
         </CardHeader>
 
         {/* Search Button */}
         <div className='flex justify-center my-2'>
-          <div className="relative text-gray-600 flex items-center justify-around shadow-[1px_1px_9px_-4px_rgba(0,0,0,0.31)] rounded-xl w-4/5">
+          <div className="relative text-gray-600 flex bg-white items-center justify-around shadow-[1px_1px_9px_-4px_rgba(0,0,0,0.31)] rounded-xl w-4/5">
             <input type="search" name="search" placeholder="Search By Name" onChange={(e)=>{setSearchInput(e.target.value)}} className="bg-white w-2/3 pl-2 py-2 rounded-full text-xs focus:outline-none"/>
             <button type="submit" onClick={searchPromotions}>
               <Search size={14}/>
@@ -111,13 +111,13 @@ export const PreviousPromotions = ({Promotion}) => {
 
         {/* Filter Options */}
         <Dialog className="w-full flex justify-center">
-          <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-1 flex items-center h-6 my-2 bg-primary text-primary-foreground rounded-lg ">Filter</div></DialogTrigger>
+          <DialogTrigger className='w-full flex justify-center'><div className="px-8 dark:bg-slate-200 py-1 flex items-center h-6 my-2 bg-primary text-primary-foreground rounded-lg ">Filter</div></DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="mb-4">Filter Promotions</DialogTitle>
               <div className="flex-col flex">
                 <div className='flex justify-between items-center my-2 w-4/5'>
-                  <Label htmlFor="category" className="text-black">Category</Label>  
+                  <Label htmlFor="category" className="text-primary">Category</Label>  
                   <Select onValueChange={(value)=>setPromotionCategory(value)} >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Category" />
@@ -133,7 +133,7 @@ export const PreviousPromotions = ({Promotion}) => {
                   </Select>
                 </div>
                 <div className='flex justify-between items-center my-2 w-4/5'>
-                  <Label htmlFor="category" className="text-black">Type</Label>  
+                  <Label htmlFor="category" className="text-primary">Type</Label>  
                   <Select onValueChange={(value)=>setPromotionType(value)}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Type" />

@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/select"
 
 import { Label } from "@radix-ui/react-dropdown-menu"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { MoreHorizontal } from "lucide-react"
 import { useContext, useState } from "react"
@@ -81,7 +81,7 @@ const EditPromotion = ({promotion}) => {
                 <div>
                 <div>
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="name" className="text-black">Name</Label>
+                        <Label htmlFor="name" className="text-primary">Name</Label>
                         <Input className="text-xs w-2/5 py-2" defaultValue={promotion.name} onChange={(e)=>setName(e.target.value)}/>
                     </div>
                     {/* <div className="flex my-2 text-xs justify-between items-center">
@@ -101,7 +101,7 @@ const EditPromotion = ({promotion}) => {
                     </Select>
                     </div> */}
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="type" className="text-black">Type</Label>
+                        <Label htmlFor="type" className="text-primary">Type</Label>
                         <Select defaultValue={promotion.promotionType} onValueChange={(value)=> setType(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                             <SelectValue placeholder="Type" />
@@ -114,14 +114,14 @@ const EditPromotion = ({promotion}) => {
                         </Select>
                     </div>
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="validFrom" className="text-black">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
+                        <Label htmlFor="validFrom" className="text-primary">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
                         <div className="w-2/5 flex">
                         <Input className="text-xs py-2 mr-2" defaultValue={convertToIndianTime(promotion.validFrom).split("T")[0] } onChange={(e)=>{setValidFromDate(e.target.value)}}/>
                         <Input className="text-xs py-2" defaultValue={convertToIndianTime(promotion.validFrom).split("T")[1]} onChange={(e)=>{setValidFromTime(e.target.value)}}/>
                         </div>
                     </div>
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="validTill" className="text-black">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
+                        <Label htmlFor="validTill" className="text-primary">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
                         <div className="w-2/5 flex">
                         <Input className="text-xs py-2 mr-2" defaultValue={convertToIndianTime(promotion.validTill).split("T")[0]} onChange={(e)=>{setValidTillDate(e.target.value)}}/>
                         <Input className="text-xs py-2" defaultValue={convertToIndianTime(promotion.validTill).split("T")[1]} onChange={(e)=>{setValidTillTime(e.target.value)}}/>
@@ -129,7 +129,7 @@ const EditPromotion = ({promotion}) => {
                     </div>
                     <MoreHorizontal className="h-4 w-4" />
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="ageCategory" className="text-black">Age Category</Label>
+                        <Label htmlFor="ageCategory" className="text-primary">Age Category</Label>
                         <Select defaultValue={promotion.criteria.ageCategory} onValueChange={(value)=> setAgeCategory(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                             <SelectValue placeholder="Age Category" />
@@ -144,7 +144,7 @@ const EditPromotion = ({promotion}) => {
                         </Select>
                     </div>
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="gender" className="text-black">Gender</Label>
+                        <Label htmlFor="gender" className="text-primary">Gender</Label>
                         <Select defaultValue={promotion.criteria.gender} onValueChange={(value)=> setGender(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                             <SelectValue placeholder="Gender" />
@@ -157,7 +157,7 @@ const EditPromotion = ({promotion}) => {
                         </Select>
                     </div>
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="maritalStatus" className="text-black">Marital Status</Label>
+                        <Label htmlFor="maritalStatus" className="text-primary">Marital Status</Label>
                         <Select defaultValue={promotion.criteria.maritalStatus} onValueChange={(value)=> setMartialStatus(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                             <SelectValue placeholder="Marital Status" />
@@ -169,7 +169,7 @@ const EditPromotion = ({promotion}) => {
                         </Select>
                     </div>
                     <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="productType" className="text-black">Product Type</Label>
+                        <Label htmlFor="productType" className="text-primary">Product Type</Label>
                         <Select defaultValue={promotion.criteria.productType} onValueChange={(value)=> setProductType(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                             <SelectValue placeholder="Product Type" />

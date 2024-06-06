@@ -4,8 +4,8 @@ import {
     SheetHeader,
     SheetTitle,
   } from "@/components/ui/sheet"
-import { Label } from "./ui/label"
-import { Input } from "./ui/input"
+import { Label } from "../ui/label"
+import { Input } from "../ui/input"
 import {
     Select,
     SelectContent,
@@ -13,7 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { MoreHorizontal } from "lucide-react"
 import { approvePromotion, disapprovePromotion } from "@/services/promotionsService"
@@ -46,11 +46,11 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                 <div>
                     <div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="name" className="text-black text-xs font-normal">Name</Label>
+                            <Label htmlFor="name" className="text-primary text-xs font-normal">Name</Label>
                             <Input className="text-xs w-2/5 py-2" defaultValue={promotion.name} disabled/>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                        <Label htmlFor="category" className="text-black text-xs font-normal">Category</Label>
+                        <Label htmlFor="category" className="text-primary text-xs font-normal">Category</Label>
                         <Select defaultValue={convertToTitleCase(promotion.category)} disabled>
                             <SelectTrigger className="w-2/5 text-xs">
                             <SelectValue placeholder="Category" />
@@ -66,7 +66,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                         </Select>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="type" className="text-black text-xs font-normal">Type</Label>
+                            <Label htmlFor="type" className="text-primary text-xs font-normal">Type</Label>
                             <Select defaultValue={promotion.promotionType} disabled>
                             <SelectTrigger className="w-2/5 text-xs">
                                 <SelectValue placeholder="Type" />
@@ -79,14 +79,14 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                             </Select>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="validFrom" className="text-black text-left text-xs font-normal">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
+                            <Label htmlFor="validFrom" className="text-primary text-left text-xs font-normal">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
                             <div className="w-2/5 flex">
                             <Input className="text-xs py-2 mr-2" defaultValue={convertToIndianTime(promotion.validFrom).split("T")[0] } disabled/>
                             <Input className="text-xs py-2" defaultValue={convertToIndianTime(promotion.validFrom).split("T")[1]} disabled/>
                             </div>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="validTill" className="text-black text-left text-xs font-normal">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
+                            <Label htmlFor="validTill" className="text-primary text-left text-xs font-normal">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
                             <div className="w-2/5 flex">
                             <Input className="text-xs py-2 mr-2" defaultValue={convertToIndianTime(promotion.validTill).split("T")[0]} disabled/>
                             <Input className="text-xs py-2" defaultValue={convertToIndianTime(promotion.validTill).split("T")[1]} disabled/>
@@ -94,7 +94,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                         </div>
                         <MoreHorizontal className="h-4 w-4" />
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="ageCategory" className="text-black text-xs font-normal">Age Category</Label>
+                            <Label htmlFor="ageCategory" className="text-primary text-xs font-normal">Age Category</Label>
                             <Select defaultValue={promotion.criteria.ageCategory} disabled>
                             <SelectTrigger className="w-2/5 text-xs">
                                 <SelectValue placeholder="Age Category" />
@@ -109,7 +109,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                             </Select>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="gender" className="text-black text-xs font-normal">Gender</Label>
+                            <Label htmlFor="gender" className="text-primary text-xs font-normal">Gender</Label>
                             <Select defaultValue={promotion.criteria.gender} disabled>
                             <SelectTrigger className="w-2/5 text-xs">
                                 <SelectValue placeholder="Gender" />
@@ -122,7 +122,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                             </Select>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="maritalStatus" className="text-black text-xs font-normal">Marital Status</Label>
+                            <Label htmlFor="maritalStatus" className="text-primary text-xs font-normal">Marital Status</Label>
                             <Select defaultValue={promotion.criteria.maritalStatus} disabled>
                             <SelectTrigger className="w-2/5 text-xs">
                                 <SelectValue placeholder="Marital Status" />
@@ -134,7 +134,7 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                             </Select>
                         </div>
                         <div className="flex my-2 text-xs justify-between items-center">
-                            <Label htmlFor="productType" className="text-black text-xs font-normal">Product Type</Label>
+                            <Label htmlFor="productType" className="text-primary text-xs font-normal">Product Type</Label>
                             <Select defaultValue={promotion.criteria.productType} disabled>
                             <SelectTrigger className="w-2/5 text-xs">
                                 <SelectValue placeholder="Product Type" />
@@ -156,10 +156,10 @@ const AuditPromotion = ({promotion, setPromotions, promotions, analytics}) => {
                         {(user?.role==="OWNER")?
                             <>
                             <SheetClose asChild>
-                                <Button className="h-8 w-3/12 bg-green-900 self-center mt-4" onClick={() => handleButtonClick('accept')}>Accept</Button>
+                                <Button className="h-8 w-3/12 bg-green-900 text-white self-center mt-4" onClick={() => handleButtonClick('accept')}>Accept</Button>
                             </SheetClose>
                             <SheetClose asChild>
-                                <Button className="h-8 w-3/12 bg-red-900 self-center mt-4" onClick={() => handleButtonClick('decline')}>Decline</Button>
+                                <Button className="h-8 w-3/12 bg-red-900 text-white self-center mt-4" onClick={() => handleButtonClick('decline')}>Decline</Button>
                             </SheetClose>:
                             </>:
                             <SheetClose asChild>

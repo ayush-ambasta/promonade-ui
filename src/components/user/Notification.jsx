@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { getNotApprovedPromotions } from '@/services/promotionsService';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import {
   Sheet,
   SheetTrigger,
@@ -16,9 +16,9 @@ import {
   Frown,
   Smile
 } from "lucide-react"
-import { PromotionCategoryIcon } from './PromoCategoryIcon';
+import { PromotionCategoryIcon } from '../promotion/PromoCategoryIcon';
 import { convertToTitleCase } from '@/lib/utils';
-import AuditPromotion from './AuditPromotion';
+import AuditPromotion from '../promotion/AuditPromotion';
 import UserContext from '@/contexts/UserContext';
 
 export const Notification = () => {
@@ -54,7 +54,7 @@ const getPromotion=async() => {
         <Card x-chunk="dashboard-07-chunk-3" className="border-0">
           <CardHeader className="p-4">
             <div className="flex items-baseline justify-between">
-              <CardTitle className="font-normal text-xl py- text-slate-600"> Notifications</CardTitle>
+              <CardTitle className="font-normal text-xl py- text-slate-600 dark:text-slate-300"> Notifications</CardTitle>
               <Button className="bg-transparent hover:bg-transparent" onClick={handleRefresh}><RefreshCcw size={16} color="#000000" /></Button>
             </div>
             <hr></hr>

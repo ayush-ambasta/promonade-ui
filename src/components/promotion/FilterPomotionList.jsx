@@ -13,13 +13,13 @@ import {
     DialogTrigger,
     DialogClose
   } from "@/components/ui/dialog"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label";
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { getAllPromotions } from "@/services/promotionsService";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const FilterPromotionList = ({defaultPromo}) => {
     const { toast } = useToast()
@@ -69,7 +69,7 @@ const FilterPromotionList = ({defaultPromo}) => {
 
     return (
         <Dialog className="w-full flex justify-center">
-            <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-primary text-primary-foreground rounded-lg ">Filter</div></DialogTrigger>
+            <DialogTrigger className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-primary dark:bg-slate-700 text-white dark:text-gray-300 rounded-lg ">Filter</div></DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                 <DialogTitle className="mb-4">Filter Promotions</DialogTitle>
@@ -91,7 +91,7 @@ const FilterPromotionList = ({defaultPromo}) => {
                         </Select>
                     </div> */}
                     <div className='flex justify-between items-center my-2'>
-                        <Label htmlFor="category" className="text-black text-xs">Type</Label>  
+                        <Label htmlFor="category" className="text-primary text-xs">Type</Label>  
                         <Select onValueChange={(value)=>setPromotionType(value)}>
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Type" />
@@ -104,14 +104,14 @@ const FilterPromotionList = ({defaultPromo}) => {
                         </Select>
                     </div>
                     <div className="flex my-2 justify-between items-center">
-                        <Label htmlFor="validTill" className="text-black text-xs">Valid Between (YYYY-MM-DD)</Label>
+                        <Label htmlFor="validTill" className="text-primary text-xs">Valid Between (YYYY-MM-DD)</Label>
                         <div className="w-2/5 flex">
                             <Input className="text-xs py-2 mr-2"  onChange={(e)=>{setValidFromDate(e.target.value)}}/>
                             <Input className="text-xs py-2" onChange={(e)=>{setValidTillDate(e.target.value)}}/>
                         </div> 
                     </div>
                     <div className='flex justify-between items-center my-2'>
-                        <Label htmlFor="active" className="text-black text-xs">Status</Label>  
+                        <Label htmlFor="active" className="text-primary text-xs">Status</Label>  
                         <Select onValueChange={(value)=>setStatus(value)}>
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Status" />

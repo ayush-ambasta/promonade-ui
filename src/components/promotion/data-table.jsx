@@ -16,7 +16,7 @@ import {
 import { deletePromotion } from "@/services/promotionsService"
 import PromotionsContext from "@/contexts/PromotionsContext";
 import { useContext } from "react";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 
 export function DataTable({ columns, data }) {
@@ -52,7 +52,7 @@ export function DataTable({ columns, data }) {
   return (
     <div className="rounded-xl border">
       <Table>
-        <TableHeader className="bg-zinc-50">
+        <TableHeader className="dark:bg-slate-800 bg-zinc-50">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {

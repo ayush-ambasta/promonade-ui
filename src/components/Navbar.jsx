@@ -4,7 +4,7 @@ import { Menu} from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import UserContext from '@/contexts/UserContext';
-
+import { ModeToggle } from './mode-toggle';
 
 function Navbar(){
   const {state,dispatch} = useContext(UserContext);
@@ -77,9 +77,13 @@ function Navbar(){
           </SheetContent>
         </Sheet>}
         <div className="order-3 lg:order-3">
-          {user === null ? (<Button><Link to="/login">Login</Link></Button>) : (
-            <Button onClick={handleLogout}>Log Out</Button>
-          )}
+          <div className='flex item-center gap-5'>
+            <ModeToggle/>
+            {user === null ? (<Button><Link to="/login">Login</Link></Button>) : (
+              <Button onClick={handleLogout}>Log Out</Button>
+            )}
+          </div>
+          
         </div>
       </header>
   )

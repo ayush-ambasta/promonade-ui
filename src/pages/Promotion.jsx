@@ -1,6 +1,6 @@
 import React from 'react'
-import { PromotionCategories } from '@/components/PromotionCategories';
-import PromotionList from '@/components/PromotionList';
+import { PromotionCategories } from '@/components/promotion/PromotionCategories';
+import PromotionList from '@/components/promotion/PromotionList';
 import { useContext, useState, useEffect } from "react";
 import UserContext from '@/contexts/UserContext';
 import { PromotionsProvider } from '@/contexts/PromotionsProvider';
