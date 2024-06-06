@@ -29,7 +29,7 @@ export const ActivePromotions = ({date}) => {
       }
 
       getPromotion();
-    }, [])
+    }, [date])
 
 
   return (
