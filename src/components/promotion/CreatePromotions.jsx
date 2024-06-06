@@ -22,8 +22,12 @@ import PromotionsContext from "@/contexts/PromotionsContext"
 import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { createPromotion } from "@/services/promotionsService";
 import { useToast } from "../ui/use-toast";
+import UserContext from '@/contexts/UserContext';
 
 const CreatePromotion = ({defaultPromo}) => {
+    const { state } = useContext(UserContext);
+    const user = state.user;
+
     const { toast } = useToast()
     const { promotions, dispatch } = useContext(PromotionsContext);
     const [name, setName] = useState("")
@@ -74,7 +78,9 @@ const CreatePromotion = ({defaultPromo}) => {
                     ageCategory, maritalStatus, gender, productType
                 }
             })
-            dispatch({type:'CREATE',payload:{...promotion, _id: promotions.length+1}})
+
+            if(user.role=="OWNER")
+                dispatch({type:'CREATE',payload:{...promotion, _id: promotions.length+1}})
         }catch(err){
             toast({
                 variant: "destructive",

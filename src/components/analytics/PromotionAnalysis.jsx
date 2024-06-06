@@ -44,6 +44,7 @@ const PromotionAnalysis = ({Promotion}) => {
 
 
     function performAnalysis(promotionId){
+        console.log("Hello")
         getData("REVENUEVSTIME", promotionId)
         getData("REVENUECONVERSIONRATE", promotionId)
         getData("PURCHASECONVERSIONRATE", promotionId)
