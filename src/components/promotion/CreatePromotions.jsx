@@ -13,15 +13,15 @@ import {
     DialogTrigger,
     DialogClose
   } from "@/components/ui/dialog"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label";
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label";
 import { MoreHorizontal } from "lucide-react"
 import { useContext, useState } from "react"
 import PromotionsContext from "@/contexts/PromotionsContext"
 import { convertToTitleCase, formatDateToISTWords, convertToIndianTime, convertToSnakeCase, isValidDateString, isValidTimeString } from "@/lib/utils"
 import { createPromotion } from "@/services/promotionsService";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 
 const CreatePromotion = ({defaultPromo}) => {
     const { toast } = useToast()
@@ -101,14 +101,14 @@ const CreatePromotion = ({defaultPromo}) => {
     return (
 
         <Dialog className="w-full flex justify-center">
-        <DialogTrigger onClick={resetStates} className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-primary text-primary-foreground rounded-lg ">Create</div></DialogTrigger>
+        <DialogTrigger onClick={resetStates} className='w-full flex justify-center'><div className="px-8 py-4 flex items-center h-4 my-2 bg-primary text-primary-foreground dark:bg-slate-700  dark:text-gray-300 rounded-lg ">Create</div></DialogTrigger>
         <DialogContent className="font-light">
         <DialogHeader>
             <DialogTitle>Create Promotion</DialogTitle>
             <div >
                 <div>
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="name" className="text-black font-normal text-xs">Name</Label>
+                    <Label htmlFor="name" className="text-primary font-normal text-xs">Name</Label>
                     <Input className="text-xs w-2/5 py-2" onChange={(e)=>setName(e.target.value)}/>
                 </div>
                 {/* <div className="flex my-2 text-xs justify-between items-center">
@@ -128,7 +128,7 @@ const CreatePromotion = ({defaultPromo}) => {
                     </Select>
                 </div> */}
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="type" className="text-black font-normal text-xs">Type</Label>
+                    <Label htmlFor="type" className="text-primary font-normal text-xs">Type</Label>
                     <Select onValueChange={(value)=> setType(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                         <SelectValue placeholder="Type" />
@@ -141,14 +141,14 @@ const CreatePromotion = ({defaultPromo}) => {
                     </Select>
                 </div>
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="validFrom" className="text-black font-normal text-xs">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
+                    <Label htmlFor="validFrom" className="text-primary font-normal text-xs">Valid From (YYYY-MM-DD) (HH:MM:SS)</Label>
                     <div className="w-2/5 flex">
                         <Input className="text-xs py-2 mr-2" onChange={(e)=>{setValidFromDate(e.target.value)}}/>
                         <Input className="text-xs py-2"  onChange={(e)=>{setValidFromTime(e.target.value)}}/>
                     </div>
                 </div>
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="validTill" className="text-black font-normal text-xs">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
+                    <Label htmlFor="validTill" className="text-primary font-normal text-xs">Valid Till (YYYY-MM-DD) (HH:MM:SS)</Label>
                     <div className="w-2/5 flex">
                         <Input className="text-xs py-2 mr-2" onChange={(e)=>{setValidTillDate(e.target.value)}}/>
                         <Input className="text-xs py-2" onChange={(e)=>{setValidTillTime(e.target.value)}}/>
@@ -156,7 +156,7 @@ const CreatePromotion = ({defaultPromo}) => {
                 </div>
                 <MoreHorizontal className="h-4 w-4" />
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="ageCategory" className="text-black font-normal text-xs" >Age Category</Label>
+                    <Label htmlFor="ageCategory" className="text-primary font-normal text-xs" >Age Category</Label>
                     <Select onValueChange={(value)=> setAgeCategory(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                         <SelectValue placeholder="Age Category" />
@@ -171,7 +171,7 @@ const CreatePromotion = ({defaultPromo}) => {
                     </Select>
                 </div>
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="gender" className="text-black font-normal text-xs">Gender</Label>
+                    <Label htmlFor="gender" className="text-primary font-normal text-xs">Gender</Label>
                     <Select onValueChange={(value)=> setGender(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                         <SelectValue placeholder="Gender" />
@@ -184,7 +184,7 @@ const CreatePromotion = ({defaultPromo}) => {
                     </Select>
                 </div>
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="maritalStatus" className="text-black font-normal text-xs">Marital Status</Label>
+                    <Label htmlFor="maritalStatus" className="text-primary font-normal text-xs">Marital Status</Label>
                     <Select onValueChange={(value)=> setMartialStatus(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                         <SelectValue placeholder="Marital Status" />
@@ -196,7 +196,7 @@ const CreatePromotion = ({defaultPromo}) => {
                     </Select>
                 </div>
                 <div className="flex my-2 text-xs justify-between items-center">
-                    <Label htmlFor="productType" className="text-black font-normal text-xs">Product Type</Label>
+                    <Label htmlFor="productType" className="text-primary font-normal text-xs">Product Type</Label>
                     <Select onValueChange={(value)=> setProductType(value)}>
                         <SelectTrigger className="w-2/5 text-xs">
                         <SelectValue placeholder="Product Type" />

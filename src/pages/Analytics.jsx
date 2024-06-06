@@ -1,7 +1,7 @@
 import React from 'react'
-import { PreviousPromotions } from '@/components/PreviousPromotions';
-import PromotionAnalysis from '@/components/PromotionAnalysis';
-import BusinessAnalysis from '@/components/BusinessAnalysis';
+import { PreviousPromotions } from '@/components/promotion/PreviousPromotions';
+import PromotionAnalysis from '@/components/analytics/PromotionAnalysis';
+import BusinessAnalysis from '@/components/analytics/BusinessAnalysis';
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { getPromotionById,getApprovedPromotions } from "@/services/promotionsService";
@@ -49,7 +49,7 @@ function Analytics(){
 
 
   return (
-    <div className='flex flex-col lg:flex-row bg-zinc-100 gap-4'>
+    <div className='flex flex-col lg:flex-row bg-zinc-100 dark:bg-slate-900 gap-4'>
       <div className='lg:w-1/5'>
         {loading &&(
                 <div className="flex justify-center w-full h-screen items-center">

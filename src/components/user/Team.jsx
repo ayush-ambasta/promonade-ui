@@ -21,9 +21,9 @@ export const Team = () => {
     }
   return (
     
-        <div className="flex max-h-screen flex-col  ">
+        <div className="flex max-h-screen  flex-col  ">
           <div className="flex-col items-center p-4 lg:px-6">
-              <span className="font-normal pb-4 text-xl text-slate-600">Teams</span>
+              <span className="font-normal pb-4 text-xl dark:text-slate-300 text-slate-600">Teams</span>
               <hr className='mt-2.5'></hr>
           </div>
           

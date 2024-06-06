@@ -9,24 +9,24 @@ import Promotion from './pages/Promotion'
 import Analytics from './pages/Analytics'
 import { RequireAuth } from './requireAuth'
 import { Toaster } from "@/components/ui/toaster"
-
+import { ThemeProvider } from "@/contexts/theme-provider"
 
 function App() {
 
   return (
-    
-    <UserProvider>
-
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<RequireAuth><Promotion/></RequireAuth>}/> 
-          <Route path='/analytics' element={<RequireAuth><Analytics/></RequireAuth>}/> 
-          <Route path='/me' element={<RequireAuth><User/></RequireAuth>}/>
-          
-          <Route path='/login' element={<Login />}/>
-        </Routes> 
-        <Toaster/>
-    </UserProvider>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <UserProvider>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<RequireAuth><Promotion/></RequireAuth>}/> 
+            <Route path='/analytics' element={<RequireAuth><Analytics/></RequireAuth>}/> 
+            <Route path='/me' element={<RequireAuth><User/></RequireAuth>}/>
+            
+            <Route path='/login' element={<Login />}/>
+          </Routes> 
+          <Toaster/>
+      </UserProvider>
+    </ThemeProvider>
   )
 }
 

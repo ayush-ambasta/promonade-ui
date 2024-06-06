@@ -7,9 +7,9 @@ import {
     CardTitle,
   } from "@/components/ui/card"
 import UserContext from '@/contexts/UserContext';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import { addUser, deleteUser, getByTeam } from '@/services/userService';
 import {
   Dialog,
@@ -37,7 +37,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 
 const teams = ["MILESTONE_PROMO_TEAM", "REFERRAL_PROMO_TEAM", "HIGHPURCHASE_PROMO_TEAM", "LOYALTY_PROMO_TEAM", "FLASHSALE_PROMO_TEAM", "SEASONAL_PROMO_TEAM"];
 const roles = ["MANAGER", "OWNER"]
@@ -143,18 +143,18 @@ export const TeamDetails = () => {
     
       <Card x-chunk="dashboard-07-chunk-3" className="border-0">
         <CardHeader>
-          <CardTitle className="font-normal text-2xl text-slate-700 mb-2">Team Details</CardTitle>
+          <CardTitle className="font-normal dark:text-slate-300 text-2xl text-slate-700 mb-2">Team Details</CardTitle>
           
         </CardHeader>
         <CardContent>
         <div className="container mx-auto p-4 pt-0">
           <div className='flex justify-between items-center mb-6'>
-            <h2 className='font-normal text-lg text-slate-800'>{(teamName && convertToTitleCase(teamName)) || (defaultTeamName && convertToTitleCase(defaultTeamName)) }</h2>
+            <h2 className='font-normal text-lg dark:text-slate-300 text-slate-800'>{(teamName && convertToTitleCase(teamName)) || (defaultTeamName && convertToTitleCase(defaultTeamName)) }</h2>
             <div className="flex justify-end ">
                 {user.role === 'OWNER' && (
                 <>
                     <Dialog>
-                      <DialogTrigger className="bg-primary text-primary-foreground px-3 py-1 rounded text-xs mr-2">
+                      <DialogTrigger className="bg-primary text-primary-foreground px-3 py-1 rounded font-medium text-xs mr-2">
                         Add Member
                       </DialogTrigger>
                       <DialogContent>
@@ -162,7 +162,7 @@ export const TeamDetails = () => {
                           <DialogTitle className="mb-4">Add Member</DialogTitle>
                           <div >
                               <div className="flex my-2 text-xs justify-between items-center">
-                                <Label className="text-black font-normal">Name</Label>
+                                <Label className="text-primary font-normal">Name</Label>
                                 <Input
                                     type="text"
                                     name="name"
@@ -171,7 +171,7 @@ export const TeamDetails = () => {
                                 />
                               </div>
                               <div className="flex my-2 text-xs justify-between items-center">
-                                <Label className="text-black font-normal">Username</Label>
+                                <Label className="text-primary font-normal">Username</Label>
                                 <Input
                                     type="text"
                                     name="username"
@@ -179,7 +179,7 @@ export const TeamDetails = () => {
                                     className="text-xs w-2/5 py-2"                                />
                                 </div>
                               <div className="flex my-2 text-xs justify-between items-center">
-                                <Label className="text-black font-normal">Password</Label>
+                                <Label className="text-primary font-normal">Password</Label>
                                 <Input
                                     type="password"
                                     name="password"
@@ -187,7 +187,7 @@ export const TeamDetails = () => {
                                     className="text-xs w-2/5 py-2"                                />
                               </div>
                               <div className="flex my-2 text-xs justify-between items-center">
-                                <Label className="text-black font-normal">Email</Label>
+                                <Label className="text-primary font-normal">Email</Label>
                                 <Input
                                     type="email"
                                     name="email"
@@ -195,7 +195,7 @@ export const TeamDetails = () => {
                                     className="text-xs w-2/5 py-2"                                />
                               </div>
                               <div className="flex my-2 text-xs justify-between items-center">
-                                <Label className="text-black font-normal">Role</Label>
+                                <Label className="text-primary font-normal">Role</Label>
                                 <Select
                                     name="role"
                                     onValueChange={handleRoleChange}
@@ -212,7 +212,7 @@ export const TeamDetails = () => {
                                 </Select>
                               </div>
                               <div className="flex my-2 text-xs justify-between items-center">
-                                <Label className="text-black font-normal">Team</Label>
+                                <Label className="text-primary font-normal">Team</Label>
                                 <Select
                                     key={key}
                                     name="team"
@@ -248,7 +248,7 @@ export const TeamDetails = () => {
           {
             team.length>0 ?
           
-            (<table className="min-w-full bg-white border">
+            (<table className="min-w-full dark:bg-slate-950 dark:text-gray-300 bg-white border">
                 <thead>
                 <tr className='border'>
                     <th className="py-2 text-xs">Username</th>
@@ -271,7 +271,7 @@ export const TeamDetails = () => {
                             
                           {member.role !== 'OWNER' && user?.team === member?.team && (
                             <AlertDialog>
-                              <AlertDialogTrigger  className="bg-primary text-primary-foreground px-3 py-1 rounded text-xs">Delete</AlertDialogTrigger>
+                              <AlertDialogTrigger  className="bg-primary text-primary-foreground px-3 py-1 rounded font-medium text-xs">Delete</AlertDialogTrigger>
 
                               <AlertDialogContent>
                                 <AlertDialogHeader>

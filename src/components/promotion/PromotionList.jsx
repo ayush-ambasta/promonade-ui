@@ -65,17 +65,17 @@ const PromotionList = ({defaultPromo}) =>{
     return (
         <div className="m-8 mt-10 lg:mt-8 w-full">
             <div className="flex lg:block justify-center">
-                <h1 className="text-3xl text-gray-600 font-semibold">Welcome Back, {user? convertToTitleCase(user.username): "User"}!</h1>
+                <h1 className="text-3xl dark:text-gray-400 text-gray-600 font-semibold">Welcome Back, {user? convertToTitleCase(user.username): "User"}!</h1>
             </div>
             <div className="flex flex-col lg:flex-row justify-between items-center my-8">
                 <div className="my-4 lg:my-auto">
-                    <h2 className="text-2xl font-normal text-gray-700">Promotions List</h2>
+                    <h2 className="text-2xl dark:text-gray-400 font-normal text-gray-700">Promotions List</h2>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center w-6/12">
 
                     {/* Search Button */}
                     <div className='flex justify-center my-2'>
-                        <div className="relative text-gray-600 px-3 flex items-center justify-around shadow-[1px_1px_9px_-4px_rgba(0,0,0,0.31)] rounded-xl ">
+                        <div className="relative dark:bg-white text-gray-600 px-3 flex items-center justify-around shadow-[1px_1px_9px_-4px_rgba(0,0,0,0.31)] rounded-xl ">
                             <input type="search" name="search" placeholder="Search by name or creator" onChange={(e)=>{setSearchInput(e.target.value)}} className="bg-white w-48  pl-2 py-2 rounded-full text-xs focus:outline-none"/>
                             <button type="submit" onClick={searchPromotions}>
                                 <Search size={14}/>

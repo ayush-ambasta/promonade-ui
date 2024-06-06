@@ -13,10 +13,10 @@ import {
   } from "@/components/ui/tooltip" 
 import { DatePickerWithRange } from "./DateRangePicker";
 import { addDays, format } from "date-fns"
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "react-responsive";
 import { getLoginsVsDate, getRevenueVsDate, getOverallPromotionConversionRate, getPromotionTrendsPieChart, getPurchaseConversionRate, getPurchasesVsDate } from "@/services/analyticsService";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 
 const BusinessAnalysis = () => {
@@ -99,18 +99,18 @@ const BusinessAnalysis = () => {
     return (
         <div className="my-3 mx-5">
             <div className="flex items-center my-4 mt-0">
-                <h1  className=" p-3 font-normal text-sm text-slate-500"> Your Analytics For:   <span className=" lg:ml-5 lg:text-2xl text-slate-700 font-normal">Your  Business </span></h1>
+                <h1  className=" p-3 font-normal text-sm text-slate-500 dark:text-slate-300"> Your Analytics For:   <span className=" lg:ml-5 lg:text-2xl text-slate-700 font-normal dark:text-slate-100">Your  Business </span></h1>
                 <BriefcaseBusiness size={35}/>
             </div>
-            <div className="p-4 bg-white rounded-lg w-full lg:w-fit mx-auto flex flex-col lg:flex-row items-center gap-5">
-                <h4 className="text-sm text-slate-600">Analysis Period</h4>
+            <div className="p-4 bg-white dark:bg-slate-950 rounded-lg w-full lg:w-fit mx-auto flex flex-col lg:flex-row items-center gap-5">
+                <h4 className="text-sm text-slate-600 dark:text-slate-200">Analysis Period</h4>
                 <DatePickerWithRange date={date} setDate={setDate} />
-                <Button className="h-8" onClick={performAnalysis}>Analyse</Button>
+                <Button className="h-8 dark:bg-slate-200" onClick={performAnalysis}>Analyse</Button>
             </div>
             <TooltipProvider>
             <div className="mt-5">
                 <div className="flex flex-col lg:flex-row justify-around items-center">
-                    <div id="line-graph-logins-vs-time" className="bg-white relative rounded-2xl p-6 w-fit my-5">
+                    <div id="line-graph-logins-vs-time" className="bg-white dark:bg-slate-950 relative rounded-2xl p-6 w-fit my-5">
                         <div className="absolute top-2 right-3">
                             <DescribeToolTip>
                                 <TooltipTrigger>
@@ -122,7 +122,7 @@ const BusinessAnalysis = () => {
                             </DescribeToolTip>
                         </div>
                         <div className="p-4 pt-0">
-                            <h3 className="text-slate-500 font-normal text-lg">Logins Vs Time Analytics</h3>
+                            <h3 className="text-slate-500 font-normal dark:text-slate-300 text-lg">Logins Vs Time Analytics</h3>
                         </div>
                         
                         <LineChart width={340} height={200} data={businessLoginData} className="text-xs" >
@@ -134,7 +134,7 @@ const BusinessAnalysis = () => {
                             <Line type="monotone" dataKey="logins" stroke="#c7ca1c" />
                         </LineChart>
                     </div>
-                    <div id="piechart-promotions" className="bg-white relative rounded-2xl p-6 w-fit my-5">
+                    <div id="piechart-promotions" className="bg-white dark:bg-slate-950 relative rounded-2xl p-6 w-fit my-5">
                         <div className="absolute top-2 right-3">
                             <DescribeToolTip>
                                 <TooltipTrigger>
@@ -146,7 +146,7 @@ const BusinessAnalysis = () => {
                             </DescribeToolTip>
                         </div>
                         <div className="p-4 pt-0">
-                            <h3 className="text-slate-500 font-normal text-lg">Promotions Usage</h3>
+                            <h3 className="text-slate-500 font-normal dark:text-slate-300 text-lg">Promotions Usage</h3>
                         </div>
                         <PieChart width={200} height={200}>
                             <Tooltip />
@@ -154,7 +154,7 @@ const BusinessAnalysis = () => {
                         </PieChart>
                     </div>
                     <div className="flex flex-col gap-3 w-full lg:w-fit">
-                        <div id="purchase-conversion-rate" className="flex relative h-2/5 bg-white rounded-2xl items-center gap-5 p-5 justify-around">
+                        <div id="purchase-conversion-rate" className="flex relative dark:bg-slate-950 h-2/5 bg-white rounded-2xl items-center gap-5 p-5 justify-around">
                             <div className="absolute top-2 right-3">
                                 <DescribeToolTip>
                                     <TooltipTrigger>
@@ -171,10 +171,10 @@ const BusinessAnalysis = () => {
                             
                             <div className="flex-col ">
                                 <h2 className="text-3xl mb-3">{purchaseConversionRate}%</h2>
-                                <h4 className="text-xs font-medium text-slate-600">Purchase Conversion Rate</h4>
+                                <h4 className="text-xs font-medium dark:text-slate-300 text-slate-600">Purchase Conversion Rate</h4>
                             </div>
                         </div>
-                        <div id="promotion-conversion-rate" className="flex relative h-2/5 bg-white rounded-2xl items-center gap-5 p-5 justify-around">
+                        <div id="promotion-conversion-rate" className="flex relative h-2/5 dark:bg-slate-950 bg-white rounded-2xl items-center gap-5 p-5 justify-around">
                             <div className="absolute top-2 right-3">
                                 <DescribeToolTip>
                                     <TooltipTrigger>
@@ -191,13 +191,13 @@ const BusinessAnalysis = () => {
                             
                             <div className="flex-col ">
                                 <h2 className="text-3xl mb-3">{promotionConversionRate}%</h2>
-                                <h4 className="text-xs font-medium text-slate-600">Promotion Conversion Rate</h4>
+                                <h4 className="text-xs font-medium dark:text-slate-300 text-slate-600">Promotion Conversion Rate</h4>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-col lg:flex-row justify-around gap-8 items-center">
-                    <div id="bar-graph-revenue-vs-time" className="bg-white relative rounded-2xl p-6 w-fit my-5">
+                    <div id="bar-graph-revenue-vs-time" className="bg-white dark:bg-slate-950 relative rounded-2xl p-6 w-fit my-5">
                         <div className="absolute top-2 right-3">
                             <DescribeToolTip>
                                 <TooltipTrigger>
@@ -209,7 +209,7 @@ const BusinessAnalysis = () => {
                             </DescribeToolTip>
                         </div>
                         <div className="p-4 pt-0">
-                            <h3 className="text-slate-500 font-normal text-lg">Revenue Vs Time Analytics</h3>
+                            <h3 className="text-slate-500 font-normal dark:text-slate-300 text-lg">Revenue Vs Time Analytics</h3>
                         </div>
                         <BarChart
                             className="text-xs"
@@ -232,7 +232,7 @@ const BusinessAnalysis = () => {
                             <Bar dataKey="revenue" fill="#f884d8" />
                         </BarChart>
                     </div>
-                    <div id="line-graph-purchases-vs-time" className="bg-white relative rounded-2xl p-6 w-fit my-5">
+                    <div id="line-graph-purchases-vs-time" className="bg-white dark:bg-slate-950 relative rounded-2xl p-6 w-fit my-5">
                         <div className="absolute top-2 right-3">
                             <DescribeToolTip>
                                 <TooltipTrigger>
@@ -244,7 +244,7 @@ const BusinessAnalysis = () => {
                             </DescribeToolTip>
                         </div>
                         <div className="p-4 pt-0">
-                            <h3 className="text-slate-500 font-normal text-lg">Purchases Vs Time Analytics</h3>
+                            <h3 className="text-slate-500 font-normal dark:text-slate-300 text-lg">Purchases Vs Time Analytics</h3>
                         </div>
                         <LineChart width={isSmallScreen ? 300 : isLargeScreen ? 400 : 650}
                             height={isSmallScreen ? 200 : isLargeScreen ? 300 : 650}

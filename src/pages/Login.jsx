@@ -61,7 +61,7 @@ function Login() {
   };
   return (
     <div className="flex min-h-[90vh] items-center justify-center px-6 lg:px-8">
-    <Card className="w-full max-w-sm">
+    <Card className="w-full dark:bg-gray-900  max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>

@@ -8,9 +8,9 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 export const PromotionCategories = ({defaultPromo, setDefaultPromo}) => {
 
   return (
-    <div className="flex max-h-screen flex-col lg:shadow-md lg:h-screen">
+    <div className="flex max-h-screen  flex-col lg:shadow-md lg:h-screen">
         <div className="flex flex-col items-center p-4 lg:px-6">
-              <span className="font-normal text-xl text-slate-600">Promotion Categories</span>
+              <span className="font-normal text-xl dark:text-slate-300 text-slate-600">Promotion Categories</span>
               <hr className='mt-2.5 h-1 w-full'></hr>
         </div>
         <div className="flex-1 ">
